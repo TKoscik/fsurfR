@@ -31,4 +31,13 @@ init.mgh <- function(file.name,
   writeBin(rep(0L, 206), fid, size=4, endian="big")                             # pad header to 284 length
   
   # Write blank volumes
+  nbytes <- switch(as.character(type),
+                   '0' = 1, '1' = 4, '3' = 4, '4' = 2,
+                   stop("Unknown data type"))
+  data <- array(NA, dim=dims.whdn[1:3])
+  for (i in 1:dims.whdn[4]) {
+    writeBin(data, fid, size = nbytes)
+  }
+  
+  close(fid)
 }
