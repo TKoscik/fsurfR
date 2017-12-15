@@ -1,9 +1,9 @@
 Package: fsurfR
 Type: Package
-Title: What the package does (short line)
+Title: Freesurfer MGH I/O Utilities
 Version: 1.0
 Date: 2017-12-15
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author: Timothy R. Koscik, PhD
+Maintainer: Timothy R. Koscik <kosciklab+fsurfR@gmail.com>
+Description: Utilities for reading from and writing to MGH Freesurfer Files
+License: No License, The MGH format is proprietary, defined by the NMR Center (at Massachusetts General Hospital). The code contained herein was generated using description of the MGH file format available here: https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/MghFormat
