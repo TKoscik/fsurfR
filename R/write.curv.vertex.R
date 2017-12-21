@@ -1,16 +1,14 @@
-write.curv.vertex(curv.file, n, values, surf.file=NULL, coords==NULL) {
+write.curv.vertex <- function(curv.file, n, values, surf.file=NULL, coords=NULL) {
   
   stopifnot(file.exists(curv.file))
   
   if (!is.null(surf.file)) {
-    stopifnot(file.exists(surf.file), stopifnot(!is.null(coords))
+    stopifnot(file.exists(surf.file), stopifnot(!is.null(coords)))
   }
   
   if (!is.null(surf.file)) {
     surf.info <- read.surf(surf.file)
-    
     coords <- as.matrix(coords, ncol=3, by.row=TRUE)
-    
     x <- surf.info$vertex[ ,1] %in% coords[ ,1]
     y <- surf.info$vertex[ ,2] %in% coords[ ,2]
     z <- surf.info$vertex[ ,3] %in% coords[ ,3]
@@ -60,5 +58,6 @@ write.curv.vertex(curv.file, n, values, surf.file=NULL, coords==NULL) {
       writeBin(values[i], fid, size=4, endian=endian)
     }
   }
+  
   close(fid)
 }

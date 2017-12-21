@@ -15,6 +15,8 @@ init.curv <- function(file.name, surf.file) {
   
   writeBin(surf.info$n.vertex, fid, size=4, endian=endian)  # Number of vertices
   writeBin(surf.info$n.face, fid, size=4, endian=endian)    # Number of faces
-  writeBin(1, fid, size=4, endian="big")                    # Number of values
+  writeBin(1L, fid, size=4, endian=endian)                    # Number of values
   writeBin(rep(NA, surf.info$n.vertex), fid, size=4, endian=endian) # Initialize empty bytes
+  
+  close(fid)
 }
