@@ -11,7 +11,7 @@ read.mgh.voxel <- function(mgh.file, coords) {
                    stop("Unknown data type"))
   voxoffset <- 284
   
-  # Check if coordinates ar in range -------------------------------------------
+  # Check if coordinates are in range ------------------------------------------
   for (i in 1:length(coords)) {
     if (i < 4) {
       stopifnot(coords[i] <= dims[i])

@@ -3,7 +3,6 @@ mgh.hdr <- function(mgh.file, field = "all") {
   stopifnot(file.exists(mgh.file))
   
   fid <- file(mgh.file, "rb")
-  # endian <- .Platform$endian # Byte order is BIG ENDIAN in file
   endian <- "big"
   
   if (field[1] == "all") {
