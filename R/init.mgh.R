@@ -11,7 +11,7 @@ init.mgh <- function(file.name,
   
   stopifnot(!missing(file.name), !missing(dims.whdn), any(length(dims.whdn)==3, length(dims.whdn)==4))
   if (length(dims.whdn)==3) { dims.whdn <- c(dims.whdn, 1) }
-  if (length(type) ~= 1) { type <- 3 }
+  if (length(type) != 1) { type <- 3 }
   
   fid <- file(file.name, "w+b")
   
