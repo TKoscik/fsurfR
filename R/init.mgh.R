@@ -10,6 +10,8 @@ init.mgh <- function(file.name,
                      c_ras = c(0,0,0)) {
   
   stopifnot(!missing(file.name), !missing(dims.whdn), any(length(dims.whdn)==3, length(dims.whdn)==4))
+  stopifnot(!file.exists(file.name))
+  
   if (length(dims.whdn)==3) { dims.whdn <- c(dims.whdn, 1) }
   if (length(type) != 1) { type <- 3 }
   

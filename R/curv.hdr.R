@@ -1,4 +1,4 @@
-curv.hdr <- function(curv.file, field) {
+curv.hdr <- function(curv.file, field="all") {
   
   stopifnot(file.exists(curv.file))
   
