@@ -17,7 +17,7 @@ read.curv.vertex <- function(curv.file, n="all", surf.file=NULL, coords=NULL) {
     n <- which(as.logical(x * y * z))
   }
   
-  if (n == "all") {
+  if (n[1] == "all") {
     n <- 1:hdr$num.vertex
     read.all <- TRUE
   } else {
@@ -43,7 +43,13 @@ read.curv.vertex <- function(curv.file, n="all", surf.file=NULL, coords=NULL) {
     values <- numeric(length(n))
     for (i in 1:length(n)) {
       invisible(seek(fid, hdr.offset+n.bytes*n[i], "start", "rb"))
-      values[i] <- readBin(fid, "double", size=n.bytes, n=1, endian=endian)
+      temp <- readBin(fid, "double", size=n.bytes, n=1, endian=endian)
+      if (length(temp) == 0) {
+        values[i] <- NA
+      } else {
+        values[i] <- temp
+      }
+      
     }
   }
   
