@@ -2,8 +2,7 @@ surf.to.group <- function(data.dir,
                           save.dir,
                           which.sjx = "all",
                           hemi = c("lh", "rh"),
-                          var.name = c("curv", "sulc", "thickness",
-                                       "volume", "w-g.pct", "jacobian_white"),
+                          var.name = c("curv", "thickness", "volume"),
                           tolerance = 1) {
   
   # Debug ----
