@@ -33,7 +33,7 @@ surf.to.group <- function(data.dir,
         init.curv(file.name = paste0(save.dir, "/", id.ls[j], ".", hemi[i], ".", var.name[k]),
                   surf.file = paste0(save.dir, "/", hemi[i], ".sphere.reg"))
         
-        sjx.crv <- read.curv.vertex(curv.file = fls[j, l+1], n = "all")
+        sjx.crv <- read.curv.vertex(curv.file = fls[j, k+1], n = "all")
         
         for (l in 1:n.vtx) {
           sjx.vtx <- matrix(sjx.surf$vertex[sjx.surf$vertex[k,1] > (group.surf$vertex[l, 1] - tolerance), ], ncol=3)
