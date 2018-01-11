@@ -36,12 +36,12 @@ surf.to.group <- function(data.dir,
         sjx.crv <- read.curv.vertex(curv.file = fls[j, k+1], n = "all")
         
         for (l in 1:n.vtx) {
-          sjx.vtx <- matrix(sjx.surf$vertex[sjx.surf$vertex[k,1] > (group.surf$vertex[l, 1] - tolerance), ], ncol=3)
-          sjx.vtx <- matrix(sjx.vtx[sjx.vtx[k,1] < (group.surf$vertex[l, 1] + tolerance), ], ncol=3)
-          sjx.vtx <- matrix(sjx.vtx[sjx.vtx[k,2] > (group.surf$vertex[l, 2] - tolerance), ], ncol=3)
-          sjx.vtx <- matrix(sjx.vtx[sjx.vtx[k,2] < (group.surf$vertex[l, 2] + tolerance), ], ncol=3)
-          sjx.vtx <- matrix(sjx.vtx[sjx.vtx[k,3] > (group.surf$vertex[l, 3] - tolerance), ], ncol=3)
-          sjx.vtx <- matrix(sjx.vtx[sjx.vtx[k,3] < (group.surf$vertex[l, 3] + tolerance), ], ncol=3)
+          sjx.vtx <- matrix(sjx.surf$vertex[sjx.surf$vertex[ ,1] > (group.surf$vertex[l, 1] - tolerance), ], ncol=3)
+          sjx.vtx <- matrix(sjx.vtx[sjx.vtx[ ,1] < (group.surf$vertex[l, 1] + tolerance), ], ncol=3)
+          sjx.vtx <- matrix(sjx.vtx[sjx.vtx[ ,2] > (group.surf$vertex[l, 2] - tolerance), ], ncol=3)
+          sjx.vtx <- matrix(sjx.vtx[sjx.vtx[ ,2] < (group.surf$vertex[l, 2] + tolerance), ], ncol=3)
+          sjx.vtx <- matrix(sjx.vtx[sjx.vtx[ ,3] > (group.surf$vertex[l, 3] - tolerance), ], ncol=3)
+          sjx.vtx <- matrix(sjx.vtx[sjx.vtx[ ,3] < (group.surf$vertex[l, 3] + tolerance), ], ncol=3)
           
           if (length(sjx.vtx) != 0) {
             vtx.temp <- rbind(sjx.vtx, group.surf$vertex[l, ])
