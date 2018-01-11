@@ -3,7 +3,7 @@ surf.to.group <- function(data.dir,
                           which.sjx = "all",
                           hemi = c("lh", "rh"),
                           var.name = c("curv", "thickness", "volume"),
-                          tolerance = 1) {
+                          tolerance = 1, verbose = TRUE) {
   
   # Debug ----
   # rm(list=ls())
@@ -32,31 +32,30 @@ surf.to.group <- function(data.dir,
       for (k in 1:n.var) {
         init.curv(file.name = paste0(save.dir, "/", id.ls[j], ".", hemi[i], ".", var.name[k]),
                   surf.file = paste0(save.dir, "/", hemi[i], ".sphere.reg"))
-      }
-      
-      for (k in 1:n.vtx) {
-        sjx.vtx <- matrix(sjx.surf$vertex[sjx.surf$vertex[ ,1] > (group.surf$vertex[k, 1] - tolerance), ], ncol=3)
-        sjx.vtx <- matrix(sjx.vtx[sjx.vtx[ ,1] < (group.surf$vertex[k, 1] + tolerance), ], ncol=3)
-        sjx.vtx <- matrix(sjx.vtx[sjx.vtx[ ,2] > (group.surf$vertex[k, 2] - tolerance), ], ncol=3)
-        sjx.vtx <- matrix(sjx.vtx[sjx.vtx[ ,2] < (group.surf$vertex[k, 2] + tolerance), ], ncol=3)
-        sjx.vtx <- matrix(sjx.vtx[sjx.vtx[ ,3] > (group.surf$vertex[k, 3] - tolerance), ], ncol=3)
-        sjx.vtx <- matrix(sjx.vtx[sjx.vtx[ ,3] < (group.surf$vertex[k, 3] + tolerance), ], ncol=3)
         
-        if (length(sjx.vtx) != 0) {
-          vtx.temp <- rbind(sjx.vtx, group.surf$vertex[k, ])
-          dist.vec <- as.matrix(dist(vtx.temp))[1:(nrow(vtx.temp)-1),nrow(vtx.temp)]
-          dist.vec <- 1 - (dist.vec - mean(dist.vec))
-          dist.vec <- dist.vec / sum(dist.vec)
+        sjx.crv <- read.curv.vertex(curv.file = fls[j, l+1], n = "all")
+        
+        for (l in 1:n.vtx) {
+          sjx.vtx <- matrix(sjx.surf$vertex[sjx.surf$vertex[k,1] > (group.surf$vertex[l, 1] - tolerance), ], ncol=3)
+          sjx.vtx <- matrix(sjx.vtx[sjx.vtx[k,1] < (group.surf$vertex[l, 1] + tolerance), ], ncol=3)
+          sjx.vtx <- matrix(sjx.vtx[sjx.vtx[k,2] > (group.surf$vertex[l, 2] - tolerance), ], ncol=3)
+          sjx.vtx <- matrix(sjx.vtx[sjx.vtx[k,2] < (group.surf$vertex[l, 2] + tolerance), ], ncol=3)
+          sjx.vtx <- matrix(sjx.vtx[sjx.vtx[k,3] > (group.surf$vertex[l, 3] - tolerance), ], ncol=3)
+          sjx.vtx <- matrix(sjx.vtx[sjx.vtx[k,3] < (group.surf$vertex[l, 3] + tolerance), ], ncol=3)
           
-          for (l in 1:n.var) {
-            val.temp <- read.curv.vertex(curv.file = fls[j, l+1],
-                                         surf.file = fls[j, 1],
-                                         coords = sjx.vtx)
+          if (length(sjx.vtx) != 0) {
+            vtx.temp <- rbind(sjx.vtx, group.surf$vertex[l, ])
+            dist.vec <- as.matrix(dist(vtx.temp))[1:(nrow(vtx.temp)-1),nrow(vtx.temp)]
+            dist.vec <- 1 - (dist.vec - mean(dist.vec))
+            dist.vec <- dist.vec / sum(dist.vec)
+            
             write.curv.vertex(
-              curv.file = paste0(save.dir, "/", id.ls[j], ".", hemi[i], ".", var.name[l]),
-              n = k, values = sum(val.temp * dist.vec))
-            print(sprintf("%0.0f of %0.0f Hemis; %0.0f of %0.0f Subjects; %0.0f of %0.0f Vertices; %0.0f of %0.0f Variables",
-                          i, length(hemi), j, n.sjx, k, n.vtx, l, n.var))
+              curv.file = paste0(save.dir, "/", id.ls[j], ".", hemi[i], ".", var.name[k]),
+              n = l, values = sum(val.temp * dist.vec))
+            if (verbose) {
+              print(sprintf("%0.0f of %0.0f Hemis; %0.0f of %0.0f Subjects; %0.0f of %0.0f Variables; %0.0f of %0.0f Vertices",
+                            i, length(hemi), j, n.sjx, k, n.var, l, n.vtx))
+            }
           }
         }
       }
