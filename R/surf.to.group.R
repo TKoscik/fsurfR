@@ -17,8 +17,10 @@ surf.to.group <- function(data.dir,
   #----
   
   for (i in 1:length(hemi)) {
-    file.copy(from = paste0(data.dir, "/fsaverage/surf/", hemi[i], ".sphere.reg"),
-              to = save.dir)
+    if (!file.exists(paste0(save.dir, "/", hemi[i], ".sphere.reg"))) {
+      file.copy(from = paste0(data.dir, "/fsaverage/surf/", hemi[i], ".sphere.reg"),
+                to = save.dir)
+    }
     group.surf <- read.surf(paste0(data.dir, "/fsaverage/surf/", hemi[i], ".sphere.reg"))
     fls <- parse.surf(data.dir, which.sjx, hemi[i], c("sphere.reg", var.name))
     n.sjx <- nrow(fls)
