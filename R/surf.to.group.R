@@ -24,7 +24,12 @@ surf.to.group <- function(data.dir,
     group.surf <- read.surf(paste0(data.dir, "/fsaverage/surf/", hemi[i], ".sphere.reg"))
     fls <- parse.surf(data.dir, which.sjx, hemi[i], c("sphere.reg", var.name))
     n.sjx <- nrow(fls)
-    id.ls <- list.dirs(data.dir, full.names = F, recursive = F)[1:n.sjx]
+    id.ls <- list.dirs(data.dir, full.names = F, recursive = F)
+    id.ls <- id.ls[-length(id.ls)]
+    if (which.sjx[1] != "all") {
+      id.ls <- id.ls[id.ls %in% which.sjx]
+    }
+    
     n.var <- length(var.name)
     n.vtx <- group.surf$n.vertex
     
