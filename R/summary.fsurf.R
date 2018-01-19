@@ -1,4 +1,11 @@
-summary.fsurf(data.dir, vars = "all", rois = "peg", sjx = "all", hemi = c("t", "l", "r"), save.csv=TRUE, save.dir = NULL, return.df = FALSE) {
+summary.fsurf(data.dir,
+              vars = "all",
+              rois = "peg",
+              sjx = "all",
+              hemi = c("t", "l", "r"),
+              save.csv=TRUE,
+              save.dir = NULL,
+              return.df = FALSE) {
   
   # #debug
   # data.dir <- "/Shared/shizhan/PNC/55489/koscikt/fsurf"
