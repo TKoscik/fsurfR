@@ -43,7 +43,7 @@ summary.fsurf <- function(data.dir,
     #           "superiortemporal", "supramarginal", "frontalpole",
     #           "temporalpole", "transversetemporal", "insula")
   } else if (rois[1] == "peg") {
-    rois <- c("wb", "lh", "rh", "frnt_tot", "par_tot", "temp_tot", "occ_tot",
+    rois <- c("wb", "lh", "rh", 
               "frnt", "par", "temp", "occ",
               "cmf", "lof", "mof", "fp", "po", "pt", "rmf", "sf", "parac", "prec", "pp", "cac", "rac", "ins",
               "postc", "ip", "sp", "pcun", "sm", "pc", "ic",
@@ -100,7 +100,6 @@ summary.fsurf <- function(data.dir,
   colnames(df) <- c("id", var.names)
   
   for (i in 1:n.sjx) {
-    out <- numeric()
     if ("t" %in% hemi) {
       lh <- read.delim(paste0(data.dir, "/", sjx[i], "/stats/lh.aparc.stats"),
                        header=F, sep="", skip=60)
