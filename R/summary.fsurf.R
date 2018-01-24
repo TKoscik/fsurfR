@@ -1,4 +1,4 @@
-summary.fsurf(data.dir,
+summary.fsurf <- function(data.dir,
               vars = "all",
               rois = "peg",
               sjx = "all",
