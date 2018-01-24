@@ -1,21 +1,12 @@
 summary.fsurf <- function(data.dir,
-                          vars = "all",
-                          rois = "peg",
+                          vars = c("sa", "g", "ta", "mc"),
+                          rois = c("peg", "all"),
                           sjx = "all",
                           hemi = c("t", "l", "r"),
                           save.csv=TRUE,
                           save.dir = NULL,
                           return.df = FALSE) {
-  
-  # #debug
-  # data.dir <- "/Shared/shizhan/PNC/55489/koscikt/fsurf"
-  # vars <- "all"
-  # rois <- "ell"
-  # sjx <- "all"
-  # hemi <- c("t", "l", "r")
-  # save.dir <- NULL
-  # #
-  
+
   if (sjx[1] == "all") {
     sjx <- list.dirs(data.dir, full.names = FALSE, recursive = FALSE)
     if (sjx[length(sjx)] == "fsaverage") { sjx <- sjx[-length(sjx)] }
@@ -24,7 +15,6 @@ summary.fsurf <- function(data.dir,
   
   if (vars[1] == "all") {
     vars <- c("n", "sa", "g", "ta", "tsd", "mc", "gc", "fi", "ci")
-    # vars <- c("NumVert", "SurfArea", "GrayVol", "ThickAvg", "ThickStd", "MeanCurv", "GausCurv", "FoldInd", "CurvInd")
   }
   rois.temp <- rois
   rois <- character()
@@ -40,61 +30,6 @@ summary.fsurf <- function(data.dir,
                   "it", "mt", "st", "tt", "ph", "fus", "bsts", "er", "tp",
                   "cun", "lo", "ling", "peric")
   }
-  # if (rois[1] == "all") {
-  #   rois <- c("cmf", "lof", "mof", "fp", "po", "pt", "rmf", "sf", "parac", "prec", "pp", "cac", "rac", "ins",
-  #             "postc", "ip", "sp", "pcun", "sm", "pc", "ic",
-  #             "it", "mt", "st", "tt", "ph", "fus", "bsts", "er", "tp",
-  #             "cun", "lo", "ling", "peric")
-  #   # rois <- c("bankssts", "caudalanteriorcingulate", "caudalmiddlefrontal",
-  #   #           "cuneus", "entorhinal", "fusiform", "inferiorparietal",
-  #   #           "inferiortemporal", "isthmuscingulate", "lateraloccipital",
-  #   #           "lateralorbitofrontal", "lingual", "medialorbitofrontal",
-  #   #           "middletemporal", "parahippocampal", "paracentral",
-  #   #           "parsopercularis", "parsorbitalis", "parstriangularis",
-  #   #           "pericalcarine", "postcentral", "posteriorcingulate",
-  #   #           "precentral", "precuneus", "rostralanteriorcingulate",
-  #   #           "rostralmiddlefrontal", "superiorfrontal", "superiorparietal",
-  #   #           "superiortemporal", "supramarginal", "frontalpole",
-  #   #           "temporalpole", "transversetemporal", "insula")
-  # } else if (rois[1] == "peg") {
-  #   rois <- c("wb", "lh", "rh", 
-  #             "frnt", "par", "temp", "occ",
-  #             "cmf", "lof", "mof", "fp", "po", "pt", "rmf", "sf", "parac", "prec", "pp", "cac", "rac", "ins",
-  #             "postc", "ip", "sp", "pcun", "sm", "pc", "ic",
-  #             "it", "mt", "st", "tt", "ph", "fus", "bsts", "er", "tp",
-  #             "cun", "lo", "ling", "peric")
-  #   # rois <- c("global", "lh", "rh", "frontal", "parietal", "temporal", "occipital",
-  #   #           "bankssts", "caudalanteriorcingulate", "caudalmiddlefrontal",
-  #   #           "cuneus", "entorhinal", "fusiform", "inferiorparietal",
-  #   #           "inferiortemporal", "isthmuscingulate", "lateraloccipital",
-  #   #           "lateralorbitofrontal", "lingual", "medialorbitofrontal",
-  #   #           "middletemporal", "parahippocampal", "paracentral",
-  #   #           "parsopercularis", "parsorbitalis", "parstriangularis",
-  #   #           "pericalcarine", "postcentral", "posteriorcingulate",
-  #   #           "precentral", "precuneus", "rostralanteriorcingulate",
-  #   #           "rostralmiddlefrontal", "superiorfrontal", "superiorparietal",
-  #   #           "superiortemporal", "supramarginal", "frontalpole",
-  #   #           "temporalpole", "transversetemporal", "insula")
-  # } else if (rois[1] == "ell") {
-  #   rois <- c("wb", "lh", "rh",
-  #             "frnt", "par", "temp", "occ", "cing",
-  #             "cmf", "lof", "mof", "fp", "po", "pt", "rmf", "sf", "parac", "prec", "pp", "cac", "rac", "ins",
-  #             "postc", "ip", "sp", "pcun", "sm", "pc", "ic",
-  #             "it", "mt", "st", "tt", "ph", "fus", "bsts", "er", "tp",
-  #             "cun", "lo", "ling", "peric")
-  #   # rois <- c("global", "lh", "rh", "frontal", "parietal", "temporal", "occipital", "cingulate",
-  #   #           "bankssts", "caudalanteriorcingulate", "caudalmiddlefrontal",
-  #   #           "cuneus", "entorhinal", "fusiform", "inferiorparietal",
-  #   #           "inferiortemporal", "isthmuscingulate", "lateraloccipital",
-  #   #           "lateralorbitofrontal", "lingual", "medialorbitofrontal",
-  #   #           "middletemporal", "parahippocampal", "paracentral",
-  #   #           "parsopercularis", "parsorbitalis", "parstriangularis",
-  #   #           "pericalcarine", "postcentral", "posteriorcingulate",
-  #   #           "precentral", "precuneus", "rostralanteriorcingulate",
-  #   #           "rostralmiddlefrontal", "superiorfrontal", "superiorparietal",
-  #   #           "superiortemporal", "supramarginal", "frontalpole",
-  #   #           "temporalpole", "transversetemporal", "insula")
-  # }
   
   var.names <- character()
   for (k in 1:length(vars)) {
