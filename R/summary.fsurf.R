@@ -101,11 +101,15 @@ summary.fsurf <- function(data.dir,
   
   for (i in 1:n.sjx) {
     out <- numeric()
-    if ("lh" %in% hemi) {
+    if ("t" %in% hemi) {
       lh <- read.delim(paste0(data.dir, "/", sjx[i], "/stats/lh.aparc.stats"),
                        header=F, sep="", skip=60)
-    }
-    if ("rh" %in% hemi) {
+      rh <- read.delim(paste0(data.dir, "/", sjx[i], "/stats/rh.aparc.stats"),
+                       header=F, sep="", skip=60)
+    } else if ("l" %in% hemi) {
+      lh <- read.delim(paste0(data.dir, "/", sjx[i], "/stats/lh.aparc.stats"),
+                       header=F, sep="", skip=60)
+    } else if ("r" %in% hemi) {
       rh <- read.delim(paste0(data.dir, "/", sjx[i], "/stats/rh.aparc.stats"),
                        header=F, sep="", skip=60)
     }
