@@ -1254,7 +1254,7 @@ summary.fsurf <- function(data.dir,
   }
   
   
-  if (return) {
+  if (return.df) {
     return(df)
   }
   
