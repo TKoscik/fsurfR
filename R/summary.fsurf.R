@@ -17,19 +17,27 @@ summary.fsurf <- function(data.dir,
   if (vars[1] == "all") {
     vars <- c("n", "sa", "g", "ta", "tsd", "mc", "gc", "fi", "ci")
   }
-  rois.temp <- rois
-  rois <- character()
-  if ("peg" %in% rois.temp) {
-    rois <- c("wb", "lh", "rh", "frnt", "par", "temp", "occ")
-  }
-  if ("ell" %in% rois.temp) {
-    rois <- c(rois, "cing")
-  }
-  if ("all" %in% rois.temp) {
-    rois <- c(rois, "cmf", "lof", "mof", "fp", "po", "pt", "rmf", "sf", "parac", "prec", "pp", "cac", "rac", "ins",
-                  "postc", "ip", "sp", "pcun", "sm", "pc", "ic",
-                  "it", "mt", "st", "tt", "ph", "fus", "bsts", "er", "tp",
-                  "cun", "lo", "ling", "peric")
+  
+  if (any(c("peg", "ell", "all") %in% rois)) {
+    rois.temp <- rois
+    rois <- character()
+    if ("peg" %in% rois.temp) {
+      rois <- c("wb", "lh", "rh", "frnt", "par", "temp", "occ")
+      rois.temp <- rois.temp[-which(rois.temp == "peg")]
+    }
+    if ("ell" %in% rois.temp) {
+      rois <- c(rois, "cing")
+      rois.temp <- rois.temp[-which(rois.temp == "ell")]
+    }
+    if ("all" %in% rois.temp) {
+      rois <- c(rois, "cmf", "lof", "mof", "fp", "po", "pt", "rmf", "sf", "parac", "prec", "pp", "cac", "rac", "ins",
+                "postc", "ip", "sp", "pcun", "sm", "pc", "ic",
+                "it", "mt", "st", "tt", "ph", "fus", "bsts", "er", "tp",
+                "cun", "lo", "ling", "peric")
+      rois.temp <- rois.temp[-which(rois.temp == "all")]
+    }
+    rois <- c(rois, rois.temp)
+    rois <- unique(rois)
   }
   
   ### order is messed up
