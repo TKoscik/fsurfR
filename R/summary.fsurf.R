@@ -62,28 +62,32 @@ summary.fsurf <- function(data.dir,
     skip.sjx <- 1
     if ("t" %in% hemi) {
       if (file.exists(paste0(data.dir, "/", sjx[i], "/stats/lh.aparc.stats"))) {
-        lh <- read.delim(paste0(data.dir, "/", sjx[i], "/stats/lh.aparc.stats"),
-                         header=F, sep="", skip=60)
+        # lh <- read.delim(paste0(data.dir, "/", sjx[i], "/stats/lh.aparc.stats"),
+        #                  header=F, sep="", skip=60)
+        lh <- read.fsurf.stats(paste0(data.dir, "/", sjx[i], "/stats/lh.aparc.stats"))
       } else {
         skip.sjx <- 0
       }
       if (file.exists(paste0(data.dir, "/", sjx[i], "/stats/rh.aparc.stats"))) {
-        rh <- read.delim(paste0(data.dir, "/", sjx[i], "/stats/rh.aparc.stats"),
-                         header=F, sep="", skip=60)
+        # rh <- read.delim(paste0(data.dir, "/", sjx[i], "/stats/rh.aparc.stats"),
+        #                  header=F, sep="", skip=60)
+        rh <- read.fsurf.stats(paste0(data.dir, "/", sjx[i], "/stats/rh.aparc.stats"))
       } else {
         skip.sjx <- 0
       }
     } else if ("l" %in% hemi) {
       if (file.exists(paste0(data.dir, "/", sjx[i], "/stats/lh.aparc.stats"))) {
-        lh <- read.delim(paste0(data.dir, "/", sjx[i], "/stats/lh.aparc.stats"),
-                         header=F, sep="", skip=60)
+        # lh <- read.delim(paste0(data.dir, "/", sjx[i], "/stats/lh.aparc.stats"),
+        #                  header=F, sep="", skip=60)
+        lh <- read.fsurf.stats(paste0(data.dir, "/", sjx[i], "/stats/lh.aparc.stats"))
       } else {
         skip.sjx <- 0
       }
     } else if ("r" %in% hemi) {
       if (file.exists(paste0(data.dir, "/", sjx[i], "/stats/rh.aparc.stats"))) {
-        rh <- read.delim(paste0(data.dir, "/", sjx[i], "/stats/rh.aparc.stats"),
-                         header=F, sep="", skip=60)
+        # rh <- read.delim(paste0(data.dir, "/", sjx[i], "/stats/rh.aparc.stats"),
+        #                  header=F, sep="", skip=60)
+        rh <- read.fsurf.stats(paste0(data.dir, "/", sjx[i], "/stats/rh.aparc.stats"))
       } else {
         skip.sjx <- 0
       }

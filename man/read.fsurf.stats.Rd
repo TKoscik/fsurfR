@@ -1,6 +1,6 @@
 \name{read.fsurf.stats}
 \alias{read.fsurf.stats}
-\title{Read Freesurfer Stats File (skipping header differences between versions)}
+\title{Read Freesurfer Stats File}
 \description{}
 \usage{
   read.fsurf.stats(stats.file)
