@@ -26,5 +26,5 @@ read.fsurf.stats <- function(stats.file) {
   }
   
   close(fid)
-  return(data)
+  return(data.chk)
 }
