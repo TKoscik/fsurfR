@@ -9,7 +9,8 @@ summary.fsurf <- function(data.dir,
 
   if (sjx[1] == "all") {
     sjx <- list.dirs(data.dir, full.names = FALSE, recursive = FALSE)
-    if (sjx[length(sjx)] == "fsaverage") { sjx <- sjx[-length(sjx)] }
+    if ("fsaverage" %in% sjx) { sjx <- sjx[-which(sjx == "fsaverage")] }
+    if ("qdec" %in% sjx) { sjx <- sjx[-which(sjx == "qdec")] }
   }
   n.sjx <- length(sjx)
   
