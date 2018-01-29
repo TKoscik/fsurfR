@@ -5,6 +5,7 @@ summary.fsurf <- function(data.dir,
                           hemi = c("t", "r", "l"),
                           save.csv=TRUE,
                           save.dir = NULL,
+                          file.name = NULL,
                           return.df = FALSE) {
 
   if (sjx[1] == "all") {
@@ -1221,8 +1222,14 @@ summary.fsurf <- function(data.dir,
     if (is.null(save.dir)) {
       save.dir <- data.dir
     }
-    write.table(df, file=paste0(save.dir, "/fsurf.summary.", format(Sys.time(), "%Y%m%d"), ".csv"),
-                quote=FALSE, row.names=FALSE, col.names=TRUE, sep=",")
+    if (is.null(file.name)) {
+      write.table(df, file=paste0(save.dir, "/fsurf.summary.", format(Sys.time(), "%Y%m%d"), ".csv"),
+                  quote=FALSE, row.names=FALSE, col.names=TRUE, sep=",")
+    } else {
+      write.table(df, file=paste0(save.dir, "/", file.name, ".csv"),
+                  quote=FALSE, row.names=FALSE, col.names=TRUE, sep=",")
+    }
+    
   }
   
   
