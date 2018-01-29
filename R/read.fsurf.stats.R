@@ -5,5 +5,6 @@ read.fsurf.stats <- function(stats.file) {
   skip.lines <- which(x == "b") - 1
   
   data <- read.delim(stats.file, header=F, sep="", skip=skip.lines)
+  close(fid)
   return(data)
 }
