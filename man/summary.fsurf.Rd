@@ -3,7 +3,7 @@
 \title{summarize surf variables across subjects}
 \description{}
 \usage{
-  summary.fsurf(data.dir, vars = "all", rois = "peg", sjx = "all", hemi = c("t", "l", "r"), save.csv=TRUE, save.dir = NULL, return.df = FALSE)
+  summary.fsurf(data.dir, vars = "all", rois = "peg", sjx = "all", hemi = c("t", "l", "r"), save.csv=TRUE, save.dir = NULL, file.name=NULL, return.df = FALSE)
 }
 \arguments{
   \item{data.dir}{}
