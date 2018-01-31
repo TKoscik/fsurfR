@@ -131,7 +131,7 @@ summary.fsurf <- function(data.dir,
       }
     }
     
-    if (any(c("all", "sub", "wm", "vnt") %in% roi.temp)) {
+    if (any(c("all", "sub", "wm", "vnt") %in% rois.temp)) {
       if (file.exists(paste0(data.dir, "/", sjx[i], "/stats/aseg.stats"))) {
         sub <- read.fsurf.stats(paste0(data.dir, "/", sjx[i], "/stats/aseg.stats"))
       } else {
