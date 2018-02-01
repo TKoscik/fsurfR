@@ -11,7 +11,7 @@ read.fsurf.stats <- function(stats.file) {
     type.chk <- 1
   } else { type.chk <- 0 }
   
-  if (type.chk) {
+  if (type.chk == 1) {
     row.chk <- c("bankssts", "caudalanteriorcingulate", "caudalmiddlefrontal",
                  "cuneus", "entorhinal", "fusiform", "inferiorparietal",
                  "inferiortemporal", "isthmuscingulate", "lateraloccipital",
