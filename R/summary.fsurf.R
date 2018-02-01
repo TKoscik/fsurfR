@@ -23,7 +23,7 @@ summary.fsurf <- function(data.dir,
     sub.vars <- c("n", "v", "nm", "nsd", "nmin", "nmax", "nrng")
   }
   
-  if (any(c("peg", "ell", "all") %in% rois)) {
+  if (any(c("peg", "ell", "all", "cx", "sub", "wm", "vnt") %in% rois)) {
     rois.temp <- rois
     rois <- character()
     if ("peg" %in% rois.temp) {
@@ -56,14 +56,10 @@ summary.fsurf <- function(data.dir,
       rois <- c(rois, "cgm", "thal", "caud", "put", "pall", "bs", "hpc", "amg", "acc", "vdc")
       rois.temp <- rois.temp[-which(rois.temp == "all")]
     }
-    rois <- c(rois, rois.temp)
-    rois <- unique(rois)
     if ("wm" %in% rois.temp) {
       rois <- c(rois, "cwm",  "oc", "ccp", "ccmp", "ccc", "ccma", "cca")
       rois.temp <- rois.temp[-which(rois.temp == "all")]
     }
-    rois <- c(rois, rois.temp)
-    rois <- unique(rois)
     if ("vent" %in% rois.temp) {
       rois <- c(rois, "lv", "ilv", "v3", "v4", "v5", "csf", "ves", "cp", "wmhyp", "nwmhyp")
       rois.temp <- rois.temp[-which(rois.temp == "all")]
@@ -76,6 +72,9 @@ summary.fsurf <- function(data.dir,
              "postc", "ip", "sp", "pcun", "sm", "pc", "ic",
              "it", "mt", "st", "tt", "ph", "fus", "bsts", "er", "tp",
              "cun", "lo", "ling", "peric")
+  sub.ls <- c("cgm", "thal", "caud", "put", "pall", "bs", "hpc", "amg", "acc", "vdc", 
+              "cwm",  "oc", "ccp", "ccmp", "ccc", "ccma", "cca",
+              "lv", "ilv", "v3", "v4", "v5", "csf", "ves", "cp", "wmhyp", "nwmhyp")
   var.names <- character()
   for (j in 1:length(rois)) {
     for (i in 1:length(hemi)) {
@@ -131,7 +130,7 @@ summary.fsurf <- function(data.dir,
       }
     }
     
-    if (any(c("all", "sub", "wm", "vnt") %in% rois.temp)) {
+    if (any(c("all", "sub", "wm", "vnt", sub.ls) %in% rois.temp)) {
       if (file.exists(paste0(data.dir, "/", sjx[i], "/stats/aseg.stats"))) {
         sub <- read.fsurf.stats(paste0(data.dir, "/", sjx[i], "/stats/aseg.stats"))
       } else {
