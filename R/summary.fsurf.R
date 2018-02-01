@@ -23,6 +23,7 @@ summary.fsurf <- function(data.dir,
     sub.vars <- c("n", "v", "nm", "nsd", "nmin", "nmax", "nrng")
   }
   
+  load.sub <- FALSE
   if (any(c("peg", "ell", "all", "cx", "sub", "wm", "vnt") %in% rois)) {
     rois.temp <- rois
     rois <- character()
@@ -44,25 +45,29 @@ summary.fsurf <- function(data.dir,
                 "cwm",  "oc", "ccp", "ccmp", "ccc", "ccma", "cca",
                 "lv", "ilv", "v3", "v4", "v5", "csf", "ves", "cp", "wmhyp", "nwmhyp")
       rois.temp <- rois.temp[-which(rois.temp == "all")]
+      load.sub <- TRUE
     }
     if ("cx" %in% rois.temp) {
       rois <- c(rois, "cmf", "lof", "mof", "fp", "po", "pt", "rmf", "sf", "parac", "prec", "pp", "cac", "rac", "ins",
                 "postc", "ip", "sp", "pcun", "sm", "pc", "ic",
                 "it", "mt", "st", "tt", "ph", "fus", "bsts", "er", "tp",
                 "cun", "lo", "ling", "peric")
-      rois.temp <- rois.temp[-which(rois.temp == "all")]
+      rois.temp <- rois.temp[-which(rois.temp == "cx")]
     }
     if ("sub" %in% rois.temp) {
       rois <- c(rois, "cgm", "thal", "caud", "put", "pall", "bs", "hpc", "amg", "acc", "vdc")
-      rois.temp <- rois.temp[-which(rois.temp == "all")]
+      rois.temp <- rois.temp[-which(rois.temp == "sub")]
+      load.sub <- TRUE
     }
     if ("wm" %in% rois.temp) {
       rois <- c(rois, "cwm",  "oc", "ccp", "ccmp", "ccc", "ccma", "cca")
-      rois.temp <- rois.temp[-which(rois.temp == "all")]
+      rois.temp <- rois.temp[-which(rois.temp == "wm")]
+      load.sub <- TRUE
     }
     if ("vent" %in% rois.temp) {
       rois <- c(rois, "lv", "ilv", "v3", "v4", "v5", "csf", "ves", "cp", "wmhyp", "nwmhyp")
-      rois.temp <- rois.temp[-which(rois.temp == "all")]
+      rois.temp <- rois.temp[-which(rois.temp == "vent")]
+      load.sub <- TRUE
     }
     rois <- c(rois, rois.temp)
     rois <- unique(rois)
@@ -130,7 +135,7 @@ summary.fsurf <- function(data.dir,
       }
     }
     
-    if (any(c("all", "sub", "wm", "vnt", sub.ls) %in% rois.temp)) {
+    if (load.sub) {
       if (file.exists(paste0(data.dir, "/", sjx[i], "/stats/aseg.stats"))) {
         sub <- read.fsurf.stats(paste0(data.dir, "/", sjx[i], "/stats/aseg.stats"))
       } else {
