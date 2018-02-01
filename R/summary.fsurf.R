@@ -73,7 +73,8 @@ summary.fsurf <- function(data.dir,
     rois <- unique(rois)
   }
   
-  cx.ls <- c("cmf", "lof", "mof", "fp", "po", "pt", "rmf", "sf", "parac", "prec", "pp", "cac", "rac", "ins",
+  cx.ls <- c("wb", "lh", "rh", "frnt", "par", "temp", "occ",
+             "cmf", "lof", "mof", "fp", "po", "pt", "rmf", "sf", "parac", "prec", "pp", "cac", "rac", "ins",
              "postc", "ip", "sp", "pcun", "sm", "pc", "ic",
              "it", "mt", "st", "tt", "ph", "fus", "bsts", "er", "tp",
              "cun", "lo", "ling", "peric")
@@ -109,29 +110,29 @@ summary.fsurf <- function(data.dir,
   colnames(df) <- c("id", var.names)
   
   for (i in 1:n.sjx) {
-    skip.sjx <- 1
+    run.sjx <- TRUE
     if ("t" %in% hemi) {
       if (file.exists(paste0(data.dir, "/", sjx[i], "/stats/lh.aparc.stats"))) {
         lh <- read.fsurf.stats(paste0(data.dir, "/", sjx[i], "/stats/lh.aparc.stats"))
       } else {
-        skip.sjx <- 0
+        run.sjx <- FALSE
       }
       if (file.exists(paste0(data.dir, "/", sjx[i], "/stats/rh.aparc.stats"))) {
         rh <- read.fsurf.stats(paste0(data.dir, "/", sjx[i], "/stats/rh.aparc.stats"))
       } else {
-        skip.sjx <- 0
+        run.sjx <- FALSE
       }
     } else if ("l" %in% hemi) {
       if (file.exists(paste0(data.dir, "/", sjx[i], "/stats/lh.aparc.stats"))) {
         lh <- read.fsurf.stats(paste0(data.dir, "/", sjx[i], "/stats/lh.aparc.stats"))
       } else {
-        skip.sjx <- 0
+        run.sjx <- FALSE
       }
     } else if ("r" %in% hemi) {
       if (file.exists(paste0(data.dir, "/", sjx[i], "/stats/rh.aparc.stats"))) {
         rh <- read.fsurf.stats(paste0(data.dir, "/", sjx[i], "/stats/rh.aparc.stats"))
       } else {
-        skip.sjx <- 0
+        run.sjx <- FALSE
       }
     }
     
@@ -139,11 +140,11 @@ summary.fsurf <- function(data.dir,
       if (file.exists(paste0(data.dir, "/", sjx[i], "/stats/aseg.stats"))) {
         sub <- read.fsurf.stats(paste0(data.dir, "/", sjx[i], "/stats/aseg.stats"))
       } else {
-        skip.sjx <- 0
+        run.sjx <- FALSE
       }
     }
     
-    if (skip.sjx) {
+    if (run.sjx) {
       f.num <- c(3,11,13,31,18,19,26,27,16,23,17,2,25,34)
       p.num <- c(21,7,28,24,30,22,9)
       t.num <- c(8,14,29,33,15,6,1,5,32)
@@ -308,7 +309,6 @@ summary.fsurf <- function(data.dir,
       if ("occ_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[o.num,3] * lh[o.num,9] / sum(lh[o.num,3])) }
       if ("occ_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[o.num,3] * lh[o.num,10] / sum(lh[o.num,3])) }
       
-      
       # Cingulate ----
       if ("cing_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[c.num,2]) + sum(rh[c.num,2]) }
       if ("cing_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[c.num,3]) + sum(rh[c.num,3]) }
@@ -340,7 +340,7 @@ summary.fsurf <- function(data.dir,
       if ("cing_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[c.num,3] * lh[c.num,9] / sum(lh[c.num,3])) }
       if ("cing_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[c.num,3] * lh[c.num,10] / sum(lh[c.num,3])) }
       
-      # ROIs
+      # Cortical ROIs ----
       if ("cmf_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[3,2]) + sum(rh[3,2]) }
       if ("cmf_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[3,3]) + sum(rh[3,3]) }
       if ("cmf_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[3,4]) + sum(rh[3,4]) }
@@ -1260,6 +1260,7 @@ summary.fsurf <- function(data.dir,
       if ("peric_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[20,3] * lh[20,9] / sum(lh[20,3])) }
       if ("peric_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[20,3] * lh[20,10] / sum(lh[20,3])) }
       
+      # Sub cortical ROIs ----
       if ("cgm_t_n" %in% var.names ) { out[length(out) + 1] <- sum(sub[c(4,22),3]) }
       if ("cgm_t_v" %in% var.names ) { out[length(out) + 1] <- sum(sub[c(4,22),4]) }
       if ("cgm_t_nm" %in% var.names ) { out[length(out) + 1] <- (sub[4,6] * sub[4,4] + sub[22,6] * sub[22,4] ) / sum(sub[c(4,22),4]) }
@@ -1355,7 +1356,6 @@ summary.fsurf <- function(data.dir,
       if ("pall_t_nmin" %in% var.names ) { out[length(out) + 1] <- (sub[8,8] * sub[8,4] + sub[26,8] * sub[26,4] ) / sum(sub[c(8,26),4]) }
       if ("pall_t_nmax" %in% var.names ) { out[length(out) + 1] <- (sub[8,9] * sub[8,4] + sub[26,9] * sub[26,4] ) / sum(sub[c(8,26),4]) }
       if ("pall_t_nrng" %in% var.names ) { out[length(out) + 1] <- (sub[8,10] * sub[8,4] + sub[26,10] * sub[26,4] ) / sum(sub[c(8,26),4]) }
-      
       if ("pall_r_n" %in% var.names ) { out[length(out) + 1] <- sub[26,3] }
       if ("pall_r_v" %in% var.names ) { out[length(out) + 1] <- sub[26,4] }
       if ("pall_r_nm" %in% var.names ) { out[length(out) + 1] <- sub[26,6] }
@@ -1363,7 +1363,6 @@ summary.fsurf <- function(data.dir,
       if ("pall_r_nmin" %in% var.names ) { out[length(out) + 1] <- sub[26,8] }
       if ("pall_r_nmax" %in% var.names ) { out[length(out) + 1] <- sub[26,9] }
       if ("pall_r_nrng" %in% var.names ) { out[length(out) + 1] <- sub[26,10] }
-      
       if ("pall_l_n" %in% var.names ) { out[length(out) + 1] <- sub[8,3] }
       if ("pall_l_v" %in% var.names ) { out[length(out) + 1] <- sub[8,4] }
       if ("pall_l_nm" %in% var.names ) { out[length(out) + 1] <- sub[8,6] }
@@ -1372,13 +1371,13 @@ summary.fsurf <- function(data.dir,
       if ("pall_l_nmax" %in% var.names ) { out[length(out) + 1] <- sub[8,9] }
       if ("pall_l_nrng" %in% var.names ) { out[length(out) + 1] <- sub[8,10] }
       
-      if ("bs_r_n" %in% var.names ) { out[length(out) + 1] <- sub[11,3] }
-      if ("bs_r_v" %in% var.names ) { out[length(out) + 1] <- sub[11,4] }
-      if ("bs_r_nm" %in% var.names ) { out[length(out) + 1] <- sub[11,6] }
-      if ("bs_r_nsd" %in% var.names ) { out[length(out) + 1] <- sub[11,7] }
-      if ("bs_r_nmin" %in% var.names ) { out[length(out) + 1] <- sub[11,8] }
-      if ("bs_r_nmax" %in% var.names ) { out[length(out) + 1] <- sub[11,9] }
-      if ("bs_r_nrng" %in% var.names ) { out[length(out) + 1] <- sub[11,10] }
+      if ("bs_n" %in% var.names ) { out[length(out) + 1] <- sub[11,3] }
+      if ("bs_v" %in% var.names ) { out[length(out) + 1] <- sub[11,4] }
+      if ("bs_nm" %in% var.names ) { out[length(out) + 1] <- sub[11,6] }
+      if ("bs_nsd" %in% var.names ) { out[length(out) + 1] <- sub[11,7] }
+      if ("bs_nmin" %in% var.names ) { out[length(out) + 1] <- sub[11,8] }
+      if ("bs_nmax" %in% var.names ) { out[length(out) + 1] <- sub[11,9] }
+      if ("bs_nrng" %in% var.names ) { out[length(out) + 1] <- sub[11,10] }
       
       if ("hpc_t_n" %in% var.names ) { out[length(out) + 1] <- sum(sub[c(12,27),3]) }
       if ("hpc_t_v" %in% var.names ) { out[length(out) + 1] <- sum(sub[c(12,27),4]) }
@@ -1387,7 +1386,6 @@ summary.fsurf <- function(data.dir,
       if ("hpc_t_nmin" %in% var.names ) { out[length(out) + 1] <- (sub[12,8] * sub[12,4] + sub[27,8] * sub[27,4] ) / sum(sub[c(12,27),4]) }
       if ("hpc_t_nmax" %in% var.names ) { out[length(out) + 1] <- (sub[12,9] * sub[12,4] + sub[27,9] * sub[27,4] ) / sum(sub[c(12,27),4]) }
       if ("hpc_t_nrng" %in% var.names ) { out[length(out) + 1] <- (sub[12,10] * sub[12,4] + sub[27,10] * sub[27,4] ) / sum(sub[c(12,27),4]) }
-      
       if ("hpc_r_n" %in% var.names ) { out[length(out) + 1] <- sub[27,3] }
       if ("hpc_r_v" %in% var.names ) { out[length(out) + 1] <- sub[27,4] }
       if ("hpc_r_nm" %in% var.names ) { out[length(out) + 1] <- sub[27,6] }
@@ -1395,7 +1393,6 @@ summary.fsurf <- function(data.dir,
       if ("hpc_r_nmin" %in% var.names ) { out[length(out) + 1] <- sub[27,8] }
       if ("hpc_r_nmax" %in% var.names ) { out[length(out) + 1] <- sub[27,9] }
       if ("hpc_r_nrng" %in% var.names ) { out[length(out) + 1] <- sub[27,10] }
-      
       if ("hpc_l_n" %in% var.names ) { out[length(out) + 1] <- sub[12,3] }
       if ("hpc_l_v" %in% var.names ) { out[length(out) + 1] <- sub[12,4] }
       if ("hpc_l_nm" %in% var.names ) { out[length(out) + 1] <- sub[12,6] }
@@ -1411,7 +1408,6 @@ summary.fsurf <- function(data.dir,
       if ("amg_t_nmin" %in% var.names ) { out[length(out) + 1] <- (sub[13,8] * sub[13,4] + sub[28,8] * sub[28,4] ) / sum(sub[c(13,28),4]) }
       if ("amg_t_nmax" %in% var.names ) { out[length(out) + 1] <- (sub[13,9] * sub[13,4] + sub[28,9] * sub[28,4] ) / sum(sub[c(13,28),4]) }
       if ("amg_t_nrng" %in% var.names ) { out[length(out) + 1] <- (sub[13,10] * sub[13,4] + sub[28,10] * sub[28,4] ) / sum(sub[c(13,28),4]) }
-      
       if ("amg_r_n" %in% var.names ) { out[length(out) + 1] <- sub[28,3] }
       if ("amg_r_v" %in% var.names ) { out[length(out) + 1] <- sub[28,4] }
       if ("amg_r_nm" %in% var.names ) { out[length(out) + 1] <- sub[28,6] }
@@ -1419,7 +1415,6 @@ summary.fsurf <- function(data.dir,
       if ("amg_r_nmin" %in% var.names ) { out[length(out) + 1] <- sub[28,8] }
       if ("amg_r_nmax" %in% var.names ) { out[length(out) + 1] <- sub[28,9] }
       if ("amg_r_nrng" %in% var.names ) { out[length(out) + 1] <- sub[28,10] }
-      
       if ("amg_l_n" %in% var.names ) { out[length(out) + 1] <- sub[13,3] }
       if ("amg_l_v" %in% var.names ) { out[length(out) + 1] <- sub[13,4] }
       if ("amg_l_nm" %in% var.names ) { out[length(out) + 1] <- sub[13,6] }
@@ -1435,7 +1430,6 @@ summary.fsurf <- function(data.dir,
       if ("acc_t_nmin" %in% var.names ) { out[length(out) + 1] <- (sub[15,8] * sub[15,4] + sub[29,8] * sub[29,4] ) / sum(sub[c(15,29),4]) }
       if ("acc_t_nmax" %in% var.names ) { out[length(out) + 1] <- (sub[15,9] * sub[15,4] + sub[29,9] * sub[29,4] ) / sum(sub[c(15,29),4]) }
       if ("acc_t_nrng" %in% var.names ) { out[length(out) + 1] <- (sub[15,10] * sub[15,4] + sub[29,10] * sub[29,4] ) / sum(sub[c(15,29),4]) }
-      
       if ("acc_r_n" %in% var.names ) { out[length(out) + 1] <- sub[29,3] }
       if ("acc_r_v" %in% var.names ) { out[length(out) + 1] <- sub[29,4] }
       if ("acc_r_nm" %in% var.names ) { out[length(out) + 1] <- sub[29,6] }
@@ -1443,7 +1437,6 @@ summary.fsurf <- function(data.dir,
       if ("acc_r_nmin" %in% var.names ) { out[length(out) + 1] <- sub[29,8] }
       if ("acc_r_nmax" %in% var.names ) { out[length(out) + 1] <- sub[29,9] }
       if ("acc_r_nrng" %in% var.names ) { out[length(out) + 1] <- sub[29,10] }
-      
       if ("acc_l_n" %in% var.names ) { out[length(out) + 1] <- sub[15,3] }
       if ("acc_l_v" %in% var.names ) { out[length(out) + 1] <- sub[15,4] }
       if ("acc_l_nm" %in% var.names ) { out[length(out) + 1] <- sub[15,6] }
@@ -1459,7 +1452,6 @@ summary.fsurf <- function(data.dir,
       if ("vdc_t_nmin" %in% var.names ) { out[length(out) + 1] <- (sub[16,8] * sub[16,4] + sub[30,8] * sub[30,4] ) / sum(sub[c(16,30),4]) }
       if ("vdc_t_nmax" %in% var.names ) { out[length(out) + 1] <- (sub[16,9] * sub[16,4] + sub[30,9] * sub[30,4] ) / sum(sub[c(16,30),4]) }
       if ("vdc_t_nrng" %in% var.names ) { out[length(out) + 1] <- (sub[16,10] * sub[16,4] + sub[30,10] * sub[30,4] ) / sum(sub[c(16,30),4]) }
-      
       if ("vdc_r_n" %in% var.names ) { out[length(out) + 1] <- sub[30,3] }
       if ("vdc_r_v" %in% var.names ) { out[length(out) + 1] <- sub[30,4] }
       if ("vdc_r_nm" %in% var.names ) { out[length(out) + 1] <- sub[30,6] }
@@ -1467,7 +1459,6 @@ summary.fsurf <- function(data.dir,
       if ("vdc_r_nmin" %in% var.names ) { out[length(out) + 1] <- sub[30,8] }
       if ("vdc_r_nmax" %in% var.names ) { out[length(out) + 1] <- sub[30,9] }
       if ("vdc_r_nrng" %in% var.names ) { out[length(out) + 1] <- sub[30,10] }
-      
       if ("vdc_l_n" %in% var.names ) { out[length(out) + 1] <- sub[16,3] }
       if ("vdc_l_v" %in% var.names ) { out[length(out) + 1] <- sub[16,4] }
       if ("vdc_l_nm" %in% var.names ) { out[length(out) + 1] <- sub[16,6] }
@@ -1483,7 +1474,6 @@ summary.fsurf <- function(data.dir,
       if ("cwm_t_nmin" %in% var.names ) { out[length(out) + 1] <- (sub[3,8] * sub[3,4] + sub[21,8] * sub[21,4] ) / sum(sub[c(3,21),4]) }
       if ("cwm_t_nmax" %in% var.names ) { out[length(out) + 1] <- (sub[3,9] * sub[3,4] + sub[21,9] * sub[21,4] ) / sum(sub[c(3,21),4]) }
       if ("cwm_t_nrng" %in% var.names ) { out[length(out) + 1] <- (sub[3,10] * sub[3,4] + sub[21,10] * sub[21,4] ) / sum(sub[c(3,21),4]) }
-      
       if ("cwm_r_n" %in% var.names ) { out[length(out) + 1] <- sub[21,3] }
       if ("cwm_r_v" %in% var.names ) { out[length(out) + 1] <- sub[21,4] }
       if ("cwm_r_nm" %in% var.names ) { out[length(out) + 1] <- sub[21,6] }
@@ -1491,7 +1481,6 @@ summary.fsurf <- function(data.dir,
       if ("cwm_r_nmin" %in% var.names ) { out[length(out) + 1] <- sub[21,8] }
       if ("cwm_r_nmax" %in% var.names ) { out[length(out) + 1] <- sub[21,9] }
       if ("cwm_r_nrng" %in% var.names ) { out[length(out) + 1] <- sub[21,10] }
-      
       if ("cwm_l_n" %in% var.names ) { out[length(out) + 1] <- sub[3,3] }
       if ("cwm_l_v" %in% var.names ) { out[length(out) + 1] <- sub[3,4] }
       if ("cwm_l_nm" %in% var.names ) { out[length(out) + 1] <- sub[3,6] }
@@ -1555,7 +1544,6 @@ summary.fsurf <- function(data.dir,
       if ("lv_t_nmin" %in% var.names ) { out[length(out) + 1] <- (sub[1,8] * sub[1,4] + sub[19,8] * sub[19,4] ) / sum(sub[c(1,19),4]) }
       if ("lv_t_nmax" %in% var.names ) { out[length(out) + 1] <- (sub[1,9] * sub[1,4] + sub[19,9] * sub[19,4] ) / sum(sub[c(1,19),4]) }
       if ("lv_t_nrng" %in% var.names ) { out[length(out) + 1] <- (sub[1,10] * sub[1,4] + sub[19,10] * sub[19,4] ) / sum(sub[c(1,19),4]) }
-      
       if ("lv_r_n" %in% var.names ) { out[length(out) + 1] <- sub[19,3] }
       if ("lv_r_v" %in% var.names ) { out[length(out) + 1] <- sub[19,4] }
       if ("lv_r_nm" %in% var.names ) { out[length(out) + 1] <- sub[19,6] }
@@ -1563,7 +1551,6 @@ summary.fsurf <- function(data.dir,
       if ("lv_r_nmin" %in% var.names ) { out[length(out) + 1] <- sub[19,8] }
       if ("lv_r_nmax" %in% var.names ) { out[length(out) + 1] <- sub[19,9] }
       if ("lv_r_nrng" %in% var.names ) { out[length(out) + 1] <- sub[19,10] }
-      
       if ("lv_l_n" %in% var.names ) { out[length(out) + 1] <- sub[1,3] }
       if ("lv_l_v" %in% var.names ) { out[length(out) + 1] <- sub[1,4] }
       if ("lv_l_nm" %in% var.names ) { out[length(out) + 1] <- sub[1,6] }
@@ -1579,7 +1566,6 @@ summary.fsurf <- function(data.dir,
       if ("ilv_t_nmin" %in% var.names ) { out[length(out) + 1] <- (sub[2,8] * sub[2,4] + sub[20,8] * sub[20,4] ) / sum(sub[c(2,20),4]) }
       if ("ilv_t_nmax" %in% var.names ) { out[length(out) + 1] <- (sub[2,9] * sub[2,4] + sub[20,9] * sub[20,4] ) / sum(sub[c(2,20),4]) }
       if ("ilv_t_nrng" %in% var.names ) { out[length(out) + 1] <- (sub[2,10] * sub[2,4] + sub[20,10] * sub[20,4] ) / sum(sub[c(2,20),4]) }
-      
       if ("ilv_r_n" %in% var.names ) { out[length(out) + 1] <- sub[20,3] }
       if ("ilv_r_v" %in% var.names ) { out[length(out) + 1] <- sub[20,4] }
       if ("ilv_r_nm" %in% var.names ) { out[length(out) + 1] <- sub[20,6] }
@@ -1587,7 +1573,6 @@ summary.fsurf <- function(data.dir,
       if ("ilv_r_nmin" %in% var.names ) { out[length(out) + 1] <- sub[20,8] }
       if ("ilv_r_nmax" %in% var.names ) { out[length(out) + 1] <- sub[20,9] }
       if ("ilv_r_nrng" %in% var.names ) { out[length(out) + 1] <- sub[20,10] }
-      
       if ("ilv_l_n" %in% var.names ) { out[length(out) + 1] <- sub[2,3] }
       if ("ilv_l_v" %in% var.names ) { out[length(out) + 1] <- sub[2,4] }
       if ("ilv_l_nm" %in% var.names ) { out[length(out) + 1] <- sub[2,6] }
@@ -1635,7 +1620,6 @@ summary.fsurf <- function(data.dir,
       if ("ves_t_nmin" %in% var.names ) { out[length(out) + 1] <- (sub[17,8] * sub[17,4] + sub[31,8] * sub[31,4] ) / sum(sub[c(17,31),4]) }
       if ("ves_t_nmax" %in% var.names ) { out[length(out) + 1] <- (sub[17,9] * sub[17,4] + sub[31,9] * sub[31,4] ) / sum(sub[c(17,31),4]) }
       if ("ves_t_nrng" %in% var.names ) { out[length(out) + 1] <- (sub[17,10] * sub[17,4] + sub[31,10] * sub[31,4] ) / sum(sub[c(17,31),4]) }
-      
       if ("ves_r_n" %in% var.names ) { out[length(out) + 1] <- sub[31,3] }
       if ("ves_r_v" %in% var.names ) { out[length(out) + 1] <- sub[31,4] }
       if ("ves_r_nm" %in% var.names ) { out[length(out) + 1] <- sub[31,6] }
@@ -1643,7 +1627,6 @@ summary.fsurf <- function(data.dir,
       if ("ves_r_nmin" %in% var.names ) { out[length(out) + 1] <- sub[31,8] }
       if ("ves_r_nmax" %in% var.names ) { out[length(out) + 1] <- sub[31,9] }
       if ("ves_r_nrng" %in% var.names ) { out[length(out) + 1] <- sub[31,10] }
-      
       if ("ves_l_n" %in% var.names ) { out[length(out) + 1] <- sub[17,3] }
       if ("ves_l_v" %in% var.names ) { out[length(out) + 1] <- sub[17,4] }
       if ("ves_l_nm" %in% var.names ) { out[length(out) + 1] <- sub[17,6] }
@@ -1659,7 +1642,6 @@ summary.fsurf <- function(data.dir,
       if ("cp_t_nmin" %in% var.names ) { out[length(out) + 1] <- (sub[18,8] * sub[18,4] + sub[32,8] * sub[32,4] ) / sum(sub[c(18,32),4]) }
       if ("cp_t_nmax" %in% var.names ) { out[length(out) + 1] <- (sub[18,9] * sub[18,4] + sub[32,9] * sub[32,4] ) / sum(sub[c(18,32),4]) }
       if ("cp_t_nrng" %in% var.names ) { out[length(out) + 1] <- (sub[18,10] * sub[18,4] + sub[32,10] * sub[32,4] ) / sum(sub[c(18,32),4]) }
-      
       if ("cp_r_n" %in% var.names ) { out[length(out) + 1] <- sub[32,3] }
       if ("cp_r_v" %in% var.names ) { out[length(out) + 1] <- sub[32,4] }
       if ("cp_r_nm" %in% var.names ) { out[length(out) + 1] <- sub[32,6] }
@@ -1667,7 +1649,6 @@ summary.fsurf <- function(data.dir,
       if ("cp_r_nmin" %in% var.names ) { out[length(out) + 1] <- sub[32,8] }
       if ("cp_r_nmax" %in% var.names ) { out[length(out) + 1] <- sub[32,9] }
       if ("cp_r_nrng" %in% var.names ) { out[length(out) + 1] <- sub[32,10] }
-      
       if ("cp_l_n" %in% var.names ) { out[length(out) + 1] <- sub[18,3] }
       if ("cp_l_v" %in% var.names ) { out[length(out) + 1] <- sub[18,4] }
       if ("cp_l_nm" %in% var.names ) { out[length(out) + 1] <- sub[18,6] }
