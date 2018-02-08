@@ -16,6 +16,8 @@ summary.fsurf <- function(data.dir,
   }
   n.sjx <- length(sjx)
   
+  hemi <- rev(sort(hemi))
+  
   if ("all" %in% vars) {
     vars <- c("n", "sa", "g", "w", "ta", "tsd", "mc", "gc", "fi", "ci")
   }
@@ -167,6 +169,7 @@ summary.fsurf <- function(data.dir,
       if ("wb_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[ ,2]) + sum(rh[ ,2]) }
       if ("wb_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[ ,3]) + sum(rh[ ,3]) }
       if ("wb_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[ ,4]) + sum(rh[ ,4]) }
+      if ("wb_w" %in% var.names ) { out[length(out) + 1] <- sum( wm[ ,4]) }
       if ("wb_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[ ,3] * lh[ ,5] / sum(lh[ ,3] + rh[ ,3])) + sum(rh[ ,3] * rh[ ,5] / sum(lh[ ,3] + rh[ ,3])) }
       if ("wb_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[ ,3] * lh[ ,6] / sum(lh[ ,3] + rh[ ,3])) + sum(rh[ ,3] * rh[ ,6] / sum(lh[ ,3] + rh[ ,3])) }
       if ("wb_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[ ,3] * lh[ ,7] / sum(lh[ ,3] + rh[ ,3])) + sum(rh[ ,3] * rh[ ,7] / sum(lh[ ,3] + rh[ ,3])) }
@@ -178,6 +181,7 @@ summary.fsurf <- function(data.dir,
       if ("lh_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[ ,2]) }
       if ("lh_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[ ,3]) }
       if ("lh_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[ ,4]) }
+      if ("lh_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[c(1:34,69),4]) }
       if ("lh_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[ ,3] * lh[ ,5] / sum(lh[ ,3])) }
       if ("lh_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[ ,3] * lh[ ,6] / sum(lh[ ,3])) }
       if ("lh_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[ ,3] * lh[ ,7] / sum(lh[ ,3])) }
@@ -189,6 +193,7 @@ summary.fsurf <- function(data.dir,
       if ("rh_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[ ,2]) }
       if ("rh_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[ ,3]) }
       if ("rh_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[ ,4]) }
+      if ("rh_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[c(35:68, 70),4]) }
       if ("rh_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[ ,3] * rh[ ,5] / sum(rh[ ,3])) }
       if ("rh_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[ ,3] * rh[ ,6] / sum(rh[ ,3])) }
       if ("rh_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[ ,3] * rh[ ,7] / sum(rh[ ,3])) }
@@ -200,6 +205,7 @@ summary.fsurf <- function(data.dir,
       if ("frnt_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[f.num,2]) + sum(rh[f.num,2]) }
       if ("frnt_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[f.num,3]) + sum(rh[f.num,3]) }
       if ("frnt_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[f.num,4]) + sum(rh[f.num,4]) }
+      if ("frnt_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[f.num,4]) + sum(wm[f.num+34,4]) }
       if ("frnt_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[f.num,3] * lh[f.num,5] / sum(lh[f.num,3] + rh[f.num,3])) + sum(rh[f.num,3] * rh[f.num,5] / sum(lh[f.num,3] + rh[f.num,3])) }
       if ("frnt_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[f.num,3] * lh[f.num,6] / sum(lh[f.num,3] + rh[f.num,3])) + sum(rh[f.num,3] * rh[f.num,6] / sum(lh[f.num,3] + rh[f.num,3])) }
       if ("frnt_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[f.num,3] * lh[f.num,7] / sum(lh[f.num,3] + rh[f.num,3])) + sum(rh[f.num,3] * rh[f.num,7] / sum(lh[f.num,3] + rh[f.num,3])) }
@@ -210,6 +216,7 @@ summary.fsurf <- function(data.dir,
       if ("frnt_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[f.num,2]) }
       if ("frnt_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[f.num,3]) }
       if ("frnt_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[f.num,4]) }
+      if ("frnt_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[f.num+34,4]) }
       if ("frnt_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[f.num,3] * rh[f.num,5] / sum(rh[f.num,3])) }
       if ("frnt_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[f.num,3] * rh[f.num,6] / sum(rh[f.num,3])) }
       if ("frnt_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[f.num,3] * rh[f.num,7] / sum(rh[f.num,3])) }
@@ -220,6 +227,7 @@ summary.fsurf <- function(data.dir,
       if ("frnt_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[f.num,2]) }
       if ("frnt_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[f.num,3]) }
       if ("frnt_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[f.num,4]) }
+      if ("frnt_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[f.num,4]) }
       if ("frnt_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[f.num,3] * lh[f.num,5] / sum(lh[f.num,3])) }
       if ("frnt_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[f.num,3] * lh[f.num,6] / sum(lh[f.num,3])) }
       if ("frnt_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[f.num,3] * lh[f.num,7] / sum(lh[f.num,3])) }
@@ -231,6 +239,7 @@ summary.fsurf <- function(data.dir,
       if ("par_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[p.num,2]) + sum(rh[p.num,2]) }
       if ("par_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[p.num,3]) + sum(rh[p.num,3]) }
       if ("par_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[p.num,4]) + sum(rh[p.num,4]) }
+      if ("par_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[p.num,4]) + sum(wm[p.num+34,4]) }
       if ("par_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[p.num,3] * lh[p.num,5] / sum(lh[p.num,3] + rh[p.num,3])) + sum(rh[p.num,3] * rh[p.num,5] / sum(lh[p.num,3] + rh[p.num,3])) }
       if ("par_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[p.num,3] * lh[p.num,6] / sum(lh[p.num,3] + rh[p.num,3])) + sum(rh[p.num,3] * rh[p.num,6] / sum(lh[p.num,3] + rh[p.num,3])) }
       if ("par_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[p.num,3] * lh[p.num,7] / sum(lh[p.num,3] + rh[p.num,3])) + sum(rh[p.num,3] * rh[p.num,7] / sum(lh[p.num,3] + rh[p.num,3])) }
@@ -241,6 +250,7 @@ summary.fsurf <- function(data.dir,
       if ("par_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[p.num,2]) }
       if ("par_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[p.num,3]) }
       if ("par_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[p.num,4]) }
+      if ("par_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[p.num+34,4]) }
       if ("par_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[p.num,3] * rh[p.num,5] / sum(rh[p.num,3])) }
       if ("par_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[p.num,3] * rh[p.num,6] / sum(rh[p.num,3])) }
       if ("par_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[p.num,3] * rh[p.num,7] / sum(rh[p.num,3])) }
@@ -251,6 +261,7 @@ summary.fsurf <- function(data.dir,
       if ("par_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[p.num,2]) }
       if ("par_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[p.num,3]) }
       if ("par_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[p.num,4]) }
+      if ("par_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[p.num,4]) }
       if ("par_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[p.num,3] * lh[p.num,5] / sum(lh[p.num,3])) }
       if ("par_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[p.num,3] * lh[p.num,6] / sum(lh[p.num,3])) }
       if ("par_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[p.num,3] * lh[p.num,7] / sum(lh[p.num,3])) }
@@ -262,6 +273,7 @@ summary.fsurf <- function(data.dir,
       if ("temp_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[t.num,2]) + sum(rh[t.num,2]) }
       if ("temp_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[t.num,3]) + sum(rh[t.num,3]) }
       if ("temp_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[t.num,4]) + sum(rh[t.num,4]) }
+      if ("temp_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[t.num,4]) + sum(wm[t.num+34,4]) }
       if ("temp_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[t.num,3] * lh[t.num,5] / sum(lh[t.num,3] + rh[t.num,3])) + sum(rh[t.num,3] * rh[t.num,5] / sum(lh[t.num,3] + rh[t.num,3])) }
       if ("temp_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[t.num,3] * lh[t.num,6] / sum(lh[t.num,3] + rh[t.num,3])) + sum(rh[t.num,3] * rh[t.num,6] / sum(lh[t.num,3] + rh[t.num,3])) }
       if ("temp_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[t.num,3] * lh[t.num,7] / sum(lh[t.num,3] + rh[t.num,3])) + sum(rh[t.num,3] * rh[t.num,7] / sum(lh[t.num,3] + rh[t.num,3])) }
@@ -272,6 +284,7 @@ summary.fsurf <- function(data.dir,
       if ("temp_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[t.num,2]) }
       if ("temp_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[t.num,3]) }
       if ("temp_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[t.num,4]) }
+      if ("temp_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[t.num+34,4]) }
       if ("temp_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[t.num,3] * rh[t.num,5] / sum(rh[t.num,3])) }
       if ("temp_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[t.num,3] * rh[t.num,6] / sum(rh[t.num,3])) }
       if ("temp_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[t.num,3] * rh[t.num,7] / sum(rh[t.num,3])) }
@@ -282,6 +295,7 @@ summary.fsurf <- function(data.dir,
       if ("temp_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[t.num,2]) }
       if ("temp_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[t.num,3]) }
       if ("temp_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[t.num,4]) }
+      if ("temp_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[t.num,4]) }
       if ("temp_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[t.num,3] * lh[t.num,5] / sum(lh[t.num,3])) }
       if ("temp_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[t.num,3] * lh[t.num,6] / sum(lh[t.num,3])) }
       if ("temp_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[t.num,3] * lh[t.num,7] / sum(lh[t.num,3])) }
@@ -293,6 +307,7 @@ summary.fsurf <- function(data.dir,
       if ("occ_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[o.num,2]) + sum(rh[o.num,2]) }
       if ("occ_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[o.num,3]) + sum(rh[o.num,3]) }
       if ("occ_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[o.num,4]) + sum(rh[o.num,4]) }
+      if ("occ_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[o.num,4]) + sum(wm[o.num+34,4]) }
       if ("occ_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[o.num,3] * lh[o.num,5] / sum(lh[o.num,3] + rh[o.num,3])) + sum(rh[o.num,3] * rh[o.num,5] / sum(lh[o.num,3] + rh[o.num,3])) }
       if ("occ_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[o.num,3] * lh[o.num,6] / sum(lh[o.num,3] + rh[o.num,3])) + sum(rh[o.num,3] * rh[o.num,6] / sum(lh[o.num,3] + rh[o.num,3])) }
       if ("occ_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[o.num,3] * lh[o.num,7] / sum(lh[o.num,3] + rh[o.num,3])) + sum(rh[o.num,3] * rh[o.num,7] / sum(lh[o.num,3] + rh[o.num,3])) }
@@ -303,6 +318,7 @@ summary.fsurf <- function(data.dir,
       if ("occ_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[o.num,2]) }
       if ("occ_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[o.num,3]) }
       if ("occ_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[o.num,4]) }
+      if ("occ_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[o.num+34,4]) }
       if ("occ_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[o.num,3] * rh[o.num,5] / sum(rh[o.num,3])) }
       if ("occ_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[o.num,3] * rh[o.num,6] / sum(rh[o.num,3])) }
       if ("occ_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[o.num,3] * rh[o.num,7] / sum(rh[o.num,3])) }
@@ -313,6 +329,7 @@ summary.fsurf <- function(data.dir,
       if ("occ_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[o.num,2]) }
       if ("occ_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[o.num,3]) }
       if ("occ_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[o.num,4]) }
+      if ("occ_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[o.num,4]) }
       if ("occ_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[o.num,3] * lh[o.num,5] / sum(lh[o.num,3])) }
       if ("occ_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[o.num,3] * lh[o.num,6] / sum(lh[o.num,3])) }
       if ("occ_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[o.num,3] * lh[o.num,7] / sum(lh[o.num,3])) }
@@ -324,6 +341,7 @@ summary.fsurf <- function(data.dir,
       if ("cing_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[c.num,2]) + sum(rh[c.num,2]) }
       if ("cing_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[c.num,3]) + sum(rh[c.num,3]) }
       if ("cing_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[c.num,4]) + sum(rh[c.num,4]) }
+      if ("cing_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[c.num,4]) + sum(wm[c.num+34,4]) }
       if ("cing_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[c.num,3] * lh[c.num,5] / sum(lh[c.num,3] + rh[c.num,3])) + sum(rh[c.num,3] * rh[c.num,5] / sum(lh[c.num,3] + rh[c.num,3])) }
       if ("cing_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[c.num,3] * lh[c.num,6] / sum(lh[c.num,3] + rh[c.num,3])) + sum(rh[c.num,3] * rh[c.num,6] / sum(lh[c.num,3] + rh[c.num,3])) }
       if ("cing_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[c.num,3] * lh[c.num,7] / sum(lh[c.num,3] + rh[c.num,3])) + sum(rh[c.num,3] * rh[c.num,7] / sum(lh[c.num,3] + rh[c.num,3])) }
@@ -334,6 +352,7 @@ summary.fsurf <- function(data.dir,
       if ("cing_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[c.num,2]) }
       if ("cing_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[c.num,3]) }
       if ("cing_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[c.num,4]) }
+      if ("cing_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[c.num+34,4]) }
       if ("cing_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[c.num,3] * rh[c.num,5] / sum(rh[c.num,3])) }
       if ("cing_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[c.num,3] * rh[c.num,6] / sum(rh[c.num,3])) }
       if ("cing_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[c.num,3] * rh[c.num,7] / sum(rh[c.num,3])) }
@@ -344,6 +363,7 @@ summary.fsurf <- function(data.dir,
       if ("cing_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[c.num,2]) }
       if ("cing_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[c.num,3]) }
       if ("cing_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[c.num,4]) }
+      if ("cing_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[c.num,4]) }
       if ("cing_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[c.num,3] * lh[c.num,5] / sum(lh[c.num,3])) }
       if ("cing_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[c.num,3] * lh[c.num,6] / sum(lh[c.num,3])) }
       if ("cing_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[c.num,3] * lh[c.num,7] / sum(lh[c.num,3])) }
@@ -355,6 +375,7 @@ summary.fsurf <- function(data.dir,
       if ("cmf_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[3,2]) + sum(rh[3,2]) }
       if ("cmf_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[3,3]) + sum(rh[3,3]) }
       if ("cmf_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[3,4]) + sum(rh[3,4]) }
+      if ("cmf_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[3,4]) + sum(wm[3+34,4]) }
       if ("cmf_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[3,3] * lh[3,5] / sum(lh[3,3] + rh[3,3])) + sum(rh[3,3] * rh[3,5] / sum(lh[3,3] + rh[3,3])) }
       if ("cmf_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[3,3] * lh[3,6] / sum(lh[3,3] + rh[3,3])) + sum(rh[3,3] * rh[3,6] / sum(lh[3,3] + rh[3,3])) }
       if ("cmf_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[3,3] * lh[3,7] / sum(lh[3,3] + rh[3,3])) + sum(rh[3,3] * rh[3,7] / sum(lh[3,3] + rh[3,3])) }
@@ -364,6 +385,7 @@ summary.fsurf <- function(data.dir,
       if ("cmf_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[3,2]) }
       if ("cmf_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[3,3]) }
       if ("cmf_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[3,4]) }
+      if ("cmf_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[3+34,4]) }
       if ("cmf_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[3,3] * rh[3,5] / sum(rh[3,3])) }
       if ("cmf_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[3,3] * rh[3,6] / sum(rh[3,3])) }
       if ("cmf_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[3,3] * rh[3,7] / sum(rh[3,3])) }
@@ -373,15 +395,18 @@ summary.fsurf <- function(data.dir,
       if ("cmf_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[3,2]) }
       if ("cmf_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[3,3]) }
       if ("cmf_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[3,4]) }
+      if ("cmf_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[3,4]) }
       if ("cmf_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[3,3] * lh[3,5] / sum(lh[3,3])) }
       if ("cmf_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[3,3] * lh[3,6] / sum(lh[3,3])) }
       if ("cmf_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[3,3] * lh[3,7] / sum(lh[3,3])) }
       if ("cmf_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[3,3] * lh[3,8] / sum(lh[3,3])) }
       if ("cmf_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[3,3] * lh[3,9] / sum(lh[3,3])) }
       if ("cmf_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[3,3] * lh[3,10] / sum(lh[3,3])) }
+      
       if ("lof_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[11,2]) + sum(rh[11,2]) }
       if ("lof_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[11,3]) + sum(rh[11,3]) }
       if ("lof_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[11,4]) + sum(rh[11,4]) }
+      if ("lof_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[11,4]) + sum(wm[11+34,4]) }
       if ("lof_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[11,3] * lh[11,5] / sum(lh[11,3] + rh[11,3])) + sum(rh[11,3] * rh[11,5] / sum(lh[11,3] + rh[11,3])) }
       if ("lof_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[11,3] * lh[11,6] / sum(lh[11,3] + rh[11,3])) + sum(rh[11,3] * rh[11,6] / sum(lh[11,3] + rh[11,3])) }
       if ("lof_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[11,3] * lh[11,7] / sum(lh[11,3] + rh[11,3])) + sum(rh[11,3] * rh[11,7] / sum(lh[11,3] + rh[11,3])) }
@@ -391,6 +416,7 @@ summary.fsurf <- function(data.dir,
       if ("lof_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[11,2]) }
       if ("lof_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[11,3]) }
       if ("lof_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[11,4]) }
+      if ("lof_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[11+34,4]) }
       if ("lof_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[11,3] * rh[11,5] / sum(rh[11,3])) }
       if ("lof_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[11,3] * rh[11,6] / sum(rh[11,3])) }
       if ("lof_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[11,3] * rh[11,7] / sum(rh[11,3])) }
@@ -400,15 +426,19 @@ summary.fsurf <- function(data.dir,
       if ("lof_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[11,2]) }
       if ("lof_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[11,3]) }
       if ("lof_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[11,4]) }
+      if ("lof_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[11,4]) }
       if ("lof_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[11,3] * lh[11,5] / sum(lh[11,3])) }
       if ("lof_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[11,3] * lh[11,6] / sum(lh[11,3])) }
       if ("lof_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[11,3] * lh[11,7] / sum(lh[11,3])) }
       if ("lof_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[11,3] * lh[11,8] / sum(lh[11,3])) }
       if ("lof_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[11,3] * lh[11,9] / sum(lh[11,3])) }
       if ("lof_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[11,3] * lh[11,10] / sum(lh[11,3])) }
+      
+      
       if ("mof_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[13,2]) + sum(rh[13,2]) }
       if ("mof_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[13,3]) + sum(rh[13,3]) }
       if ("mof_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[13,4]) + sum(rh[13,4]) }
+      if ("mof_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[13,4]) + sum(wm[13+34,4]) }
       if ("mof_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[13,3] * lh[13,5] / sum(lh[13,3] + rh[13,3])) + sum(rh[13,3] * rh[13,5] / sum(lh[13,3] + rh[13,3])) }
       if ("mof_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[13,3] * lh[13,6] / sum(lh[13,3] + rh[13,3])) + sum(rh[13,3] * rh[13,6] / sum(lh[13,3] + rh[13,3])) }
       if ("mof_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[13,3] * lh[13,7] / sum(lh[13,3] + rh[13,3])) + sum(rh[13,3] * rh[13,7] / sum(lh[13,3] + rh[13,3])) }
@@ -418,6 +448,7 @@ summary.fsurf <- function(data.dir,
       if ("mof_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[13,2]) }
       if ("mof_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[13,3]) }
       if ("mof_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[13,4]) }
+      if ("mof_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[13+34,4]) }
       if ("mof_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[13,3] * rh[13,5] / sum(rh[13,3])) }
       if ("mof_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[13,3] * rh[13,6] / sum(rh[13,3])) }
       if ("mof_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[13,3] * rh[13,7] / sum(rh[13,3])) }
@@ -427,15 +458,18 @@ summary.fsurf <- function(data.dir,
       if ("mof_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[13,2]) }
       if ("mof_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[13,3]) }
       if ("mof_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[13,4]) }
+      if ("mof_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[13,4]) }
       if ("mof_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[13,3] * lh[13,5] / sum(lh[13,3])) }
       if ("mof_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[13,3] * lh[13,6] / sum(lh[13,3])) }
       if ("mof_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[13,3] * lh[13,7] / sum(lh[13,3])) }
       if ("mof_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[13,3] * lh[13,8] / sum(lh[13,3])) }
       if ("mof_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[13,3] * lh[13,9] / sum(lh[13,3])) }
       if ("mof_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[13,3] * lh[13,10] / sum(lh[13,3])) }
+      
       if ("fp_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[31,2]) + sum(rh[31,2]) }
       if ("fp_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[31,3]) + sum(rh[31,3]) }
       if ("fp_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[31,4]) + sum(rh[31,4]) }
+      if ("fp_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[31,4]) + sum(wm[31+34,4]) }
       if ("fp_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[31,3] * lh[31,5] / sum(lh[31,3] + rh[31,3])) + sum(rh[31,3] * rh[31,5] / sum(lh[31,3] + rh[31,3])) }
       if ("fp_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[31,3] * lh[31,6] / sum(lh[31,3] + rh[31,3])) + sum(rh[31,3] * rh[31,6] / sum(lh[31,3] + rh[31,3])) }
       if ("fp_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[31,3] * lh[31,7] / sum(lh[31,3] + rh[31,3])) + sum(rh[31,3] * rh[31,7] / sum(lh[31,3] + rh[31,3])) }
@@ -445,6 +479,7 @@ summary.fsurf <- function(data.dir,
       if ("fp_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[31,2]) }
       if ("fp_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[31,3]) }
       if ("fp_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[31,4]) }
+      if ("fp_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[31+34,4]) }
       if ("fp_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[31,3] * rh[31,5] / sum(rh[31,3])) }
       if ("fp_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[31,3] * rh[31,6] / sum(rh[31,3])) }
       if ("fp_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[31,3] * rh[31,7] / sum(rh[31,3])) }
@@ -454,15 +489,18 @@ summary.fsurf <- function(data.dir,
       if ("fp_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[31,2]) }
       if ("fp_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[31,3]) }
       if ("fp_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[31,4]) }
+      if ("fp_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[31,4]) }
       if ("fp_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[31,3] * lh[31,5] / sum(lh[31,3])) }
       if ("fp_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[31,3] * lh[31,6] / sum(lh[31,3])) }
       if ("fp_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[31,3] * lh[31,7] / sum(lh[31,3])) }
       if ("fp_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[31,3] * lh[31,8] / sum(lh[31,3])) }
       if ("fp_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[31,3] * lh[31,9] / sum(lh[31,3])) }
       if ("fp_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[31,3] * lh[31,10] / sum(lh[31,3])) }
+      
       if ("po_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[18,2]) + sum(rh[18,2]) }
       if ("po_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[18,3]) + sum(rh[18,3]) }
       if ("po_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[18,4]) + sum(rh[18,4]) }
+      if ("po_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[18,4]) + sum(wm[18+34,4]) }
       if ("po_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[18,3] * lh[18,5] / sum(lh[18,3] + rh[18,3])) + sum(rh[18,3] * rh[18,5] / sum(lh[18,3] + rh[18,3])) }
       if ("po_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[18,3] * lh[18,6] / sum(lh[18,3] + rh[18,3])) + sum(rh[18,3] * rh[18,6] / sum(lh[18,3] + rh[18,3])) }
       if ("po_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[18,3] * lh[18,7] / sum(lh[18,3] + rh[18,3])) + sum(rh[18,3] * rh[18,7] / sum(lh[18,3] + rh[18,3])) }
@@ -472,6 +510,7 @@ summary.fsurf <- function(data.dir,
       if ("po_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[18,2]) }
       if ("po_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[18,3]) }
       if ("po_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[18,4]) }
+      if ("po_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[18+34,4]) }
       if ("po_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[18,3] * rh[18,5] / sum(rh[18,3])) }
       if ("po_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[18,3] * rh[18,6] / sum(rh[18,3])) }
       if ("po_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[18,3] * rh[18,7] / sum(rh[18,3])) }
@@ -481,15 +520,18 @@ summary.fsurf <- function(data.dir,
       if ("po_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[18,2]) }
       if ("po_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[18,3]) }
       if ("po_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[18,4]) }
+      if ("po_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[18,4]) }
       if ("po_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[18,3] * lh[18,5] / sum(lh[18,3])) }
       if ("po_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[18,3] * lh[18,6] / sum(lh[18,3])) }
       if ("po_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[18,3] * lh[18,7] / sum(lh[18,3])) }
       if ("po_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[18,3] * lh[18,8] / sum(lh[18,3])) }
       if ("po_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[18,3] * lh[18,9] / sum(lh[18,3])) }
       if ("po_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[18,3] * lh[18,10] / sum(lh[18,3])) }
+      
       if ("pt_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[19,2]) + sum(rh[19,2]) }
       if ("pt_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[19,3]) + sum(rh[19,3]) }
       if ("pt_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[19,4]) + sum(rh[19,4]) }
+      if ("pt_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[19,4]) + sum(wm[19+34,4]) }
       if ("pt_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[19,3] * lh[19,5] / sum(lh[19,3] + rh[19,3])) + sum(rh[19,3] * rh[19,5] / sum(lh[19,3] + rh[19,3])) }
       if ("pt_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[19,3] * lh[19,6] / sum(lh[19,3] + rh[19,3])) + sum(rh[19,3] * rh[19,6] / sum(lh[19,3] + rh[19,3])) }
       if ("pt_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[19,3] * lh[19,7] / sum(lh[19,3] + rh[19,3])) + sum(rh[19,3] * rh[19,7] / sum(lh[19,3] + rh[19,3])) }
@@ -499,6 +541,7 @@ summary.fsurf <- function(data.dir,
       if ("pt_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[19,2]) }
       if ("pt_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[19,3]) }
       if ("pt_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[19,4]) }
+      if ("pt_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[19+34,4]) }
       if ("pt_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[19,3] * rh[19,5] / sum(rh[19,3])) }
       if ("pt_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[19,3] * rh[19,6] / sum(rh[19,3])) }
       if ("pt_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[19,3] * rh[19,7] / sum(rh[19,3])) }
@@ -508,15 +551,18 @@ summary.fsurf <- function(data.dir,
       if ("pt_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[19,2]) }
       if ("pt_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[19,3]) }
       if ("pt_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[19,4]) }
+      if ("pt_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[19,4]) }
       if ("pt_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[19,3] * lh[19,5] / sum(lh[19,3])) }
       if ("pt_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[19,3] * lh[19,6] / sum(lh[19,3])) }
       if ("pt_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[19,3] * lh[19,7] / sum(lh[19,3])) }
       if ("pt_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[19,3] * lh[19,8] / sum(lh[19,3])) }
       if ("pt_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[19,3] * lh[19,9] / sum(lh[19,3])) }
       if ("pt_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[19,3] * lh[19,10] / sum(lh[19,3])) }
+      
       if ("rmf_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[26,2]) + sum(rh[26,2]) }
       if ("rmf_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[26,3]) + sum(rh[26,3]) }
       if ("rmf_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[26,4]) + sum(rh[26,4]) }
+      if ("rmf_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[26,4]) + sum(wm[26+34,4]) }
       if ("rmf_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[26,3] * lh[26,5] / sum(lh[26,3] + rh[26,3])) + sum(rh[26,3] * rh[26,5] / sum(lh[26,3] + rh[26,3])) }
       if ("rmf_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[26,3] * lh[26,6] / sum(lh[26,3] + rh[26,3])) + sum(rh[26,3] * rh[26,6] / sum(lh[26,3] + rh[26,3])) }
       if ("rmf_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[26,3] * lh[26,7] / sum(lh[26,3] + rh[26,3])) + sum(rh[26,3] * rh[26,7] / sum(lh[26,3] + rh[26,3])) }
@@ -526,6 +572,7 @@ summary.fsurf <- function(data.dir,
       if ("rmf_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[26,2]) }
       if ("rmf_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[26,3]) }
       if ("rmf_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[26,4]) }
+      if ("rmf_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[26+34,4]) }
       if ("rmf_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[26,3] * rh[26,5] / sum(rh[26,3])) }
       if ("rmf_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[26,3] * rh[26,6] / sum(rh[26,3])) }
       if ("rmf_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[26,3] * rh[26,7] / sum(rh[26,3])) }
@@ -535,15 +582,18 @@ summary.fsurf <- function(data.dir,
       if ("rmf_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[26,2]) }
       if ("rmf_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[26,3]) }
       if ("rmf_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[26,4]) }
+      if ("rmf_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[26,4]) }
       if ("rmf_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[26,3] * lh[26,5] / sum(lh[26,3])) }
       if ("rmf_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[26,3] * lh[26,6] / sum(lh[26,3])) }
       if ("rmf_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[26,3] * lh[26,7] / sum(lh[26,3])) }
       if ("rmf_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[26,3] * lh[26,8] / sum(lh[26,3])) }
       if ("rmf_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[26,3] * lh[26,9] / sum(lh[26,3])) }
       if ("rmf_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[26,3] * lh[26,10] / sum(lh[26,3])) }
+      
       if ("sf_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[27,2]) + sum(rh[27,2]) }
       if ("sf_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[27,3]) + sum(rh[27,3]) }
       if ("sf_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[27,4]) + sum(rh[27,4]) }
+      if ("sf_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[27,4]) + sum(wm[27+34,4]) }
       if ("sf_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[27,3] * lh[27,5] / sum(lh[27,3] + rh[27,3])) + sum(rh[27,3] * rh[27,5] / sum(lh[27,3] + rh[27,3])) }
       if ("sf_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[27,3] * lh[27,6] / sum(lh[27,3] + rh[27,3])) + sum(rh[27,3] * rh[27,6] / sum(lh[27,3] + rh[27,3])) }
       if ("sf_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[27,3] * lh[27,7] / sum(lh[27,3] + rh[27,3])) + sum(rh[27,3] * rh[27,7] / sum(lh[27,3] + rh[27,3])) }
@@ -553,6 +603,7 @@ summary.fsurf <- function(data.dir,
       if ("sf_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[27,2]) }
       if ("sf_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[27,3]) }
       if ("sf_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[27,4]) }
+      if ("sf_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[27+34,4]) }
       if ("sf_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[27,3] * rh[27,5] / sum(rh[27,3])) }
       if ("sf_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[27,3] * rh[27,6] / sum(rh[27,3])) }
       if ("sf_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[27,3] * rh[27,7] / sum(rh[27,3])) }
@@ -562,15 +613,18 @@ summary.fsurf <- function(data.dir,
       if ("sf_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[27,2]) }
       if ("sf_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[27,3]) }
       if ("sf_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[27,4]) }
+      if ("sf_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[27,4]) }
       if ("sf_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[27,3] * lh[27,5] / sum(lh[27,3])) }
       if ("sf_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[27,3] * lh[27,6] / sum(lh[27,3])) }
       if ("sf_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[27,3] * lh[27,7] / sum(lh[27,3])) }
       if ("sf_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[27,3] * lh[27,8] / sum(lh[27,3])) }
       if ("sf_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[27,3] * lh[27,9] / sum(lh[27,3])) }
       if ("sf_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[27,3] * lh[27,10] / sum(lh[27,3])) }
+      
       if ("parac_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[16,2]) + sum(rh[16,2]) }
       if ("parac_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[16,3]) + sum(rh[16,3]) }
       if ("parac_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[16,4]) + sum(rh[16,4]) }
+      if ("parac_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[16,4]) + sum(wm[16+34,4]) }
       if ("parac_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[16,3] * lh[16,5] / sum(lh[16,3] + rh[16,3])) + sum(rh[16,3] * rh[16,5] / sum(lh[16,3] + rh[16,3])) }
       if ("parac_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[16,3] * lh[16,6] / sum(lh[16,3] + rh[16,3])) + sum(rh[16,3] * rh[16,6] / sum(lh[16,3] + rh[16,3])) }
       if ("parac_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[16,3] * lh[16,7] / sum(lh[16,3] + rh[16,3])) + sum(rh[16,3] * rh[16,7] / sum(lh[16,3] + rh[16,3])) }
@@ -580,6 +634,7 @@ summary.fsurf <- function(data.dir,
       if ("parac_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[16,2]) }
       if ("parac_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[16,3]) }
       if ("parac_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[16,4]) }
+      if ("parac_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[16+34,4]) }
       if ("parac_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[16,3] * rh[16,5] / sum(rh[16,3])) }
       if ("parac_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[16,3] * rh[16,6] / sum(rh[16,3])) }
       if ("parac_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[16,3] * rh[16,7] / sum(rh[16,3])) }
@@ -589,15 +644,18 @@ summary.fsurf <- function(data.dir,
       if ("parac_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[16,2]) }
       if ("parac_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[16,3]) }
       if ("parac_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[16,4]) }
+      if ("parac_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[16,4]) }
       if ("parac_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[16,3] * lh[16,5] / sum(lh[16,3])) }
       if ("parac_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[16,3] * lh[16,6] / sum(lh[16,3])) }
       if ("parac_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[16,3] * lh[16,7] / sum(lh[16,3])) }
       if ("parac_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[16,3] * lh[16,8] / sum(lh[16,3])) }
       if ("parac_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[16,3] * lh[16,9] / sum(lh[16,3])) }
       if ("parac_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[16,3] * lh[16,10] / sum(lh[16,3])) }
+      
       if ("prec_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[23,2]) + sum(rh[23,2]) }
       if ("prec_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[23,3]) + sum(rh[23,3]) }
       if ("prec_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[23,4]) + sum(rh[23,4]) }
+      if ("prec_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[23,4]) + sum(wm[23+34,4]) }
       if ("prec_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[23,3] * lh[23,5] / sum(lh[23,3] + rh[23,3])) + sum(rh[23,3] * rh[23,5] / sum(lh[23,3] + rh[23,3])) }
       if ("prec_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[23,3] * lh[23,6] / sum(lh[23,3] + rh[23,3])) + sum(rh[23,3] * rh[23,6] / sum(lh[23,3] + rh[23,3])) }
       if ("prec_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[23,3] * lh[23,7] / sum(lh[23,3] + rh[23,3])) + sum(rh[23,3] * rh[23,7] / sum(lh[23,3] + rh[23,3])) }
@@ -607,6 +665,7 @@ summary.fsurf <- function(data.dir,
       if ("prec_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[23,2]) }
       if ("prec_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[23,3]) }
       if ("prec_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[23,4]) }
+      if ("prec_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[23+34,4]) }
       if ("prec_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[23,3] * rh[23,5] / sum(rh[23,3])) }
       if ("prec_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[23,3] * rh[23,6] / sum(rh[23,3])) }
       if ("prec_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[23,3] * rh[23,7] / sum(rh[23,3])) }
@@ -616,15 +675,18 @@ summary.fsurf <- function(data.dir,
       if ("prec_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[23,2]) }
       if ("prec_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[23,3]) }
       if ("prec_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[23,4]) }
+      if ("prec_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[23,4]) }
       if ("prec_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[23,3] * lh[23,5] / sum(lh[23,3])) }
       if ("prec_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[23,3] * lh[23,6] / sum(lh[23,3])) }
       if ("prec_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[23,3] * lh[23,7] / sum(lh[23,3])) }
       if ("prec_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[23,3] * lh[23,8] / sum(lh[23,3])) }
       if ("prec_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[23,3] * lh[23,9] / sum(lh[23,3])) }
       if ("prec_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[23,3] * lh[23,10] / sum(lh[23,3])) }
+      
       if ("pp_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[17,2]) + sum(rh[17,2]) }
       if ("pp_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[17,3]) + sum(rh[17,3]) }
       if ("pp_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[17,4]) + sum(rh[17,4]) }
+      if ("pp_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[17,4]) + sum(wm[17+34,4]) }
       if ("pp_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[17,3] * lh[17,5] / sum(lh[17,3] + rh[17,3])) + sum(rh[17,3] * rh[17,5] / sum(lh[17,3] + rh[17,3])) }
       if ("pp_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[17,3] * lh[17,6] / sum(lh[17,3] + rh[17,3])) + sum(rh[17,3] * rh[17,6] / sum(lh[17,3] + rh[17,3])) }
       if ("pp_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[17,3] * lh[17,7] / sum(lh[17,3] + rh[17,3])) + sum(rh[17,3] * rh[17,7] / sum(lh[17,3] + rh[17,3])) }
@@ -634,6 +696,7 @@ summary.fsurf <- function(data.dir,
       if ("pp_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[17,2]) }
       if ("pp_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[17,3]) }
       if ("pp_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[17,4]) }
+      if ("pp_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[17+34,4]) }
       if ("pp_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[17,3] * rh[17,5] / sum(rh[17,3])) }
       if ("pp_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[17,3] * rh[17,6] / sum(rh[17,3])) }
       if ("pp_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[17,3] * rh[17,7] / sum(rh[17,3])) }
@@ -643,15 +706,18 @@ summary.fsurf <- function(data.dir,
       if ("pp_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[17,2]) }
       if ("pp_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[17,3]) }
       if ("pp_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[17,4]) }
+      if ("pp_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[17+34,4]) }
       if ("pp_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[17,3] * lh[17,5] / sum(lh[17,3])) }
       if ("pp_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[17,3] * lh[17,6] / sum(lh[17,3])) }
       if ("pp_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[17,3] * lh[17,7] / sum(lh[17,3])) }
       if ("pp_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[17,3] * lh[17,8] / sum(lh[17,3])) }
       if ("pp_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[17,3] * lh[17,9] / sum(lh[17,3])) }
       if ("pp_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[17,3] * lh[17,10] / sum(lh[17,3])) }
+      
       if ("cac_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[2,2]) + sum(rh[2,2]) }
       if ("cac_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[2,3]) + sum(rh[2,3]) }
       if ("cac_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[2,4]) + sum(rh[2,4]) }
+      if ("cac_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[2,4]) + sum(wm[2+34,4]) }
       if ("cac_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[2,3] * lh[2,5] / sum(lh[2,3] + rh[2,3])) + sum(rh[2,3] * rh[2,5] / sum(lh[2,3] + rh[2,3])) }
       if ("cac_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[2,3] * lh[2,6] / sum(lh[2,3] + rh[2,3])) + sum(rh[2,3] * rh[2,6] / sum(lh[2,3] + rh[2,3])) }
       if ("cac_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[2,3] * lh[2,7] / sum(lh[2,3] + rh[2,3])) + sum(rh[2,3] * rh[2,7] / sum(lh[2,3] + rh[2,3])) }
@@ -661,6 +727,7 @@ summary.fsurf <- function(data.dir,
       if ("cac_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[2,2]) }
       if ("cac_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[2,3]) }
       if ("cac_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[2,4]) }
+      if ("cac_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[2+34,4]) }
       if ("cac_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[2,3] * rh[2,5] / sum(rh[2,3])) }
       if ("cac_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[2,3] * rh[2,6] / sum(rh[2,3])) }
       if ("cac_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[2,3] * rh[2,7] / sum(rh[2,3])) }
@@ -670,15 +737,18 @@ summary.fsurf <- function(data.dir,
       if ("cac_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[2,2]) }
       if ("cac_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[2,3]) }
       if ("cac_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[2,4]) }
+      if ("cac_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[2,4]) }
       if ("cac_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[2,3] * lh[2,5] / sum(lh[2,3])) }
       if ("cac_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[2,3] * lh[2,6] / sum(lh[2,3])) }
       if ("cac_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[2,3] * lh[2,7] / sum(lh[2,3])) }
       if ("cac_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[2,3] * lh[2,8] / sum(lh[2,3])) }
       if ("cac_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[2,3] * lh[2,9] / sum(lh[2,3])) }
       if ("cac_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[2,3] * lh[2,10] / sum(lh[2,3])) }
+      
       if ("rac_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[25,2]) + sum(rh[25,2]) }
       if ("rac_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[25,3]) + sum(rh[25,3]) }
       if ("rac_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[25,4]) + sum(rh[25,4]) }
+      if ("rac_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[25,4]) + sum(wm[25+34,4]) }
       if ("rac_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[25,3] * lh[25,5] / sum(lh[25,3] + rh[25,3])) + sum(rh[25,3] * rh[25,5] / sum(lh[25,3] + rh[25,3])) }
       if ("rac_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[25,3] * lh[25,6] / sum(lh[25,3] + rh[25,3])) + sum(rh[25,3] * rh[25,6] / sum(lh[25,3] + rh[25,3])) }
       if ("rac_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[25,3] * lh[25,7] / sum(lh[25,3] + rh[25,3])) + sum(rh[25,3] * rh[25,7] / sum(lh[25,3] + rh[25,3])) }
@@ -688,6 +758,7 @@ summary.fsurf <- function(data.dir,
       if ("rac_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[25,2]) }
       if ("rac_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[25,3]) }
       if ("rac_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[25,4]) }
+      if ("rac_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[25+34,4]) }
       if ("rac_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[25,3] * rh[25,5] / sum(rh[25,3])) }
       if ("rac_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[25,3] * rh[25,6] / sum(rh[25,3])) }
       if ("rac_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[25,3] * rh[25,7] / sum(rh[25,3])) }
@@ -697,15 +768,18 @@ summary.fsurf <- function(data.dir,
       if ("rac_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[25,2]) }
       if ("rac_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[25,3]) }
       if ("rac_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[25,4]) }
+      if ("rac_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[25,4]) }
       if ("rac_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[25,3] * lh[25,5] / sum(lh[25,3])) }
       if ("rac_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[25,3] * lh[25,6] / sum(lh[25,3])) }
       if ("rac_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[25,3] * lh[25,7] / sum(lh[25,3])) }
       if ("rac_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[25,3] * lh[25,8] / sum(lh[25,3])) }
       if ("rac_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[25,3] * lh[25,9] / sum(lh[25,3])) }
       if ("rac_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[25,3] * lh[25,10] / sum(lh[25,3])) }
+      
       if ("ins_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[34,2]) + sum(rh[34,2]) }
       if ("ins_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[34,3]) + sum(rh[34,3]) }
       if ("ins_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[34,4]) + sum(rh[34,4]) }
+      if ("ins_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[34,4]) + sum(wm[34+34,4]) }
       if ("ins_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[34,3] * lh[34,5] / sum(lh[34,3] + rh[34,3])) + sum(rh[34,3] * rh[34,5] / sum(lh[34,3] + rh[34,3])) }
       if ("ins_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[34,3] * lh[34,6] / sum(lh[34,3] + rh[34,3])) + sum(rh[34,3] * rh[34,6] / sum(lh[34,3] + rh[34,3])) }
       if ("ins_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[34,3] * lh[34,7] / sum(lh[34,3] + rh[34,3])) + sum(rh[34,3] * rh[34,7] / sum(lh[34,3] + rh[34,3])) }
@@ -715,6 +789,7 @@ summary.fsurf <- function(data.dir,
       if ("ins_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[34,2]) }
       if ("ins_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[34,3]) }
       if ("ins_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[34,4]) }
+      if ("ins_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[34+34,4]) }
       if ("ins_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[34,3] * rh[34,5] / sum(rh[34,3])) }
       if ("ins_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[34,3] * rh[34,6] / sum(rh[34,3])) }
       if ("ins_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[34,3] * rh[34,7] / sum(rh[34,3])) }
@@ -724,15 +799,18 @@ summary.fsurf <- function(data.dir,
       if ("ins_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[34,2]) }
       if ("ins_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[34,3]) }
       if ("ins_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[34,4]) }
+      if ("ins_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[34,4]) }
       if ("ins_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[34,3] * lh[34,5] / sum(lh[34,3])) }
       if ("ins_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[34,3] * lh[34,6] / sum(lh[34,3])) }
       if ("ins_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[34,3] * lh[34,7] / sum(lh[34,3])) }
       if ("ins_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[34,3] * lh[34,8] / sum(lh[34,3])) }
       if ("ins_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[34,3] * lh[34,9] / sum(lh[34,3])) }
       if ("ins_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[34,3] * lh[34,10] / sum(lh[34,3])) }
+      
       if ("postc_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[21,2]) + sum(rh[21,2]) }
       if ("postc_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[21,3]) + sum(rh[21,3]) }
       if ("postc_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[21,4]) + sum(rh[21,4]) }
+      if ("postc_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[21,4]) + sum(wm[21+34,4]) }
       if ("postc_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[21,3] * lh[21,5] / sum(lh[21,3] + rh[21,3])) + sum(rh[21,3] * rh[21,5] / sum(lh[21,3] + rh[21,3])) }
       if ("postc_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[21,3] * lh[21,6] / sum(lh[21,3] + rh[21,3])) + sum(rh[21,3] * rh[21,6] / sum(lh[21,3] + rh[21,3])) }
       if ("postc_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[21,3] * lh[21,7] / sum(lh[21,3] + rh[21,3])) + sum(rh[21,3] * rh[21,7] / sum(lh[21,3] + rh[21,3])) }
@@ -742,6 +820,7 @@ summary.fsurf <- function(data.dir,
       if ("postc_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[21,2]) }
       if ("postc_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[21,3]) }
       if ("postc_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[21,4]) }
+      if ("postc_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[21+34,4]) }
       if ("postc_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[21,3] * rh[21,5] / sum(rh[21,3])) }
       if ("postc_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[21,3] * rh[21,6] / sum(rh[21,3])) }
       if ("postc_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[21,3] * rh[21,7] / sum(rh[21,3])) }
@@ -751,15 +830,18 @@ summary.fsurf <- function(data.dir,
       if ("postc_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[21,2]) }
       if ("postc_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[21,3]) }
       if ("postc_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[21,4]) }
+      if ("postc_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[21,4]) }
       if ("postc_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[21,3] * lh[21,5] / sum(lh[21,3])) }
       if ("postc_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[21,3] * lh[21,6] / sum(lh[21,3])) }
       if ("postc_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[21,3] * lh[21,7] / sum(lh[21,3])) }
       if ("postc_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[21,3] * lh[21,8] / sum(lh[21,3])) }
       if ("postc_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[21,3] * lh[21,9] / sum(lh[21,3])) }
       if ("postc_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[21,3] * lh[21,10] / sum(lh[21,3])) }
+      
       if ("ip_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[7,2]) + sum(rh[7,2]) }
       if ("ip_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[7,3]) + sum(rh[7,3]) }
       if ("ip_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[7,4]) + sum(rh[7,4]) }
+      if ("ip_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[7,4]) + sum(wm[7+34,4]) }
       if ("ip_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[7,3] * lh[7,5] / sum(lh[7,3] + rh[7,3])) + sum(rh[7,3] * rh[7,5] / sum(lh[7,3] + rh[7,3])) }
       if ("ip_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[7,3] * lh[7,6] / sum(lh[7,3] + rh[7,3])) + sum(rh[7,3] * rh[7,6] / sum(lh[7,3] + rh[7,3])) }
       if ("ip_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[7,3] * lh[7,7] / sum(lh[7,3] + rh[7,3])) + sum(rh[7,3] * rh[7,7] / sum(lh[7,3] + rh[7,3])) }
@@ -769,6 +851,7 @@ summary.fsurf <- function(data.dir,
       if ("ip_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[7,2]) }
       if ("ip_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[7,3]) }
       if ("ip_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[7,4]) }
+      if ("ip_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[7+34,4]) }
       if ("ip_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[7,3] * rh[7,5] / sum(rh[7,3])) }
       if ("ip_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[7,3] * rh[7,6] / sum(rh[7,3])) }
       if ("ip_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[7,3] * rh[7,7] / sum(rh[7,3])) }
@@ -778,15 +861,18 @@ summary.fsurf <- function(data.dir,
       if ("ip_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[7,2]) }
       if ("ip_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[7,3]) }
       if ("ip_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[7,4]) }
+      if ("ip_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[7,4]) }
       if ("ip_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[7,3] * lh[7,5] / sum(lh[7,3])) }
       if ("ip_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[7,3] * lh[7,6] / sum(lh[7,3])) }
       if ("ip_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[7,3] * lh[7,7] / sum(lh[7,3])) }
       if ("ip_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[7,3] * lh[7,8] / sum(lh[7,3])) }
       if ("ip_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[7,3] * lh[7,9] / sum(lh[7,3])) }
       if ("ip_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[7,3] * lh[7,10] / sum(lh[7,3])) }
+      
       if ("sp_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[28,2]) + sum(rh[28,2]) }
       if ("sp_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[28,3]) + sum(rh[28,3]) }
       if ("sp_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[28,4]) + sum(rh[28,4]) }
+      if ("sp_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[28,4]) + sum(wm[28+34,4]) }
       if ("sp_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[28,3] * lh[28,5] / sum(lh[28,3] + rh[28,3])) + sum(rh[28,3] * rh[28,5] / sum(lh[28,3] + rh[28,3])) }
       if ("sp_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[28,3] * lh[28,6] / sum(lh[28,3] + rh[28,3])) + sum(rh[28,3] * rh[28,6] / sum(lh[28,3] + rh[28,3])) }
       if ("sp_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[28,3] * lh[28,7] / sum(lh[28,3] + rh[28,3])) + sum(rh[28,3] * rh[28,7] / sum(lh[28,3] + rh[28,3])) }
@@ -796,6 +882,7 @@ summary.fsurf <- function(data.dir,
       if ("sp_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[28,2]) }
       if ("sp_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[28,3]) }
       if ("sp_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[28,4]) }
+      if ("sp_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[28+34,4]) }
       if ("sp_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[28,3] * rh[28,5] / sum(rh[28,3])) }
       if ("sp_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[28,3] * rh[28,6] / sum(rh[28,3])) }
       if ("sp_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[28,3] * rh[28,7] / sum(rh[28,3])) }
@@ -805,15 +892,18 @@ summary.fsurf <- function(data.dir,
       if ("sp_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[28,2]) }
       if ("sp_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[28,3]) }
       if ("sp_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[28,4]) }
+      if ("sp_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[28,4]) }
       if ("sp_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[28,3] * lh[28,5] / sum(lh[28,3])) }
       if ("sp_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[28,3] * lh[28,6] / sum(lh[28,3])) }
       if ("sp_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[28,3] * lh[28,7] / sum(lh[28,3])) }
       if ("sp_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[28,3] * lh[28,8] / sum(lh[28,3])) }
       if ("sp_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[28,3] * lh[28,9] / sum(lh[28,3])) }
       if ("sp_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[28,3] * lh[28,10] / sum(lh[28,3])) }
+      
       if ("pcun_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[24,2]) + sum(rh[24,2]) }
       if ("pcun_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[24,3]) + sum(rh[24,3]) }
       if ("pcun_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[24,4]) + sum(rh[24,4]) }
+      if ("pcun_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[24,4]) + sum(wm[24+34,4]) }
       if ("pcun_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[24,3] * lh[24,5] / sum(lh[24,3] + rh[24,3])) + sum(rh[24,3] * rh[24,5] / sum(lh[24,3] + rh[24,3])) }
       if ("pcun_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[24,3] * lh[24,6] / sum(lh[24,3] + rh[24,3])) + sum(rh[24,3] * rh[24,6] / sum(lh[24,3] + rh[24,3])) }
       if ("pcun_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[24,3] * lh[24,7] / sum(lh[24,3] + rh[24,3])) + sum(rh[24,3] * rh[24,7] / sum(lh[24,3] + rh[24,3])) }
@@ -823,6 +913,7 @@ summary.fsurf <- function(data.dir,
       if ("pcun_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[24,2]) }
       if ("pcun_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[24,3]) }
       if ("pcun_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[24,4]) }
+      if ("pcun_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[24+34,4]) }
       if ("pcun_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[24,3] * rh[24,5] / sum(rh[24,3])) }
       if ("pcun_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[24,3] * rh[24,6] / sum(rh[24,3])) }
       if ("pcun_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[24,3] * rh[24,7] / sum(rh[24,3])) }
@@ -832,15 +923,18 @@ summary.fsurf <- function(data.dir,
       if ("pcun_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[24,2]) }
       if ("pcun_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[24,3]) }
       if ("pcun_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[24,4]) }
+      if ("pcun_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[24,4]) }
       if ("pcun_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[24,3] * lh[24,5] / sum(lh[24,3])) }
       if ("pcun_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[24,3] * lh[24,6] / sum(lh[24,3])) }
       if ("pcun_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[24,3] * lh[24,7] / sum(lh[24,3])) }
       if ("pcun_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[24,3] * lh[24,8] / sum(lh[24,3])) }
       if ("pcun_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[24,3] * lh[24,9] / sum(lh[24,3])) }
       if ("pcun_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[24,3] * lh[24,10] / sum(lh[24,3])) }
+      
       if ("sm_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[30,2]) + sum(rh[30,2]) }
       if ("sm_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[30,3]) + sum(rh[30,3]) }
       if ("sm_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[30,4]) + sum(rh[30,4]) }
+      if ("sm_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[30,4]) + sum(wm[30+34,4]) }
       if ("sm_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[30,3] * lh[30,5] / sum(lh[30,3] + rh[30,3])) + sum(rh[30,3] * rh[30,5] / sum(lh[30,3] + rh[30,3])) }
       if ("sm_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[30,3] * lh[30,6] / sum(lh[30,3] + rh[30,3])) + sum(rh[30,3] * rh[30,6] / sum(lh[30,3] + rh[30,3])) }
       if ("sm_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[30,3] * lh[30,7] / sum(lh[30,3] + rh[30,3])) + sum(rh[30,3] * rh[30,7] / sum(lh[30,3] + rh[30,3])) }
@@ -850,6 +944,7 @@ summary.fsurf <- function(data.dir,
       if ("sm_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[30,2]) }
       if ("sm_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[30,3]) }
       if ("sm_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[30,4]) }
+      if ("sm_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[30+34,4]) }
       if ("sm_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[30,3] * rh[30,5] / sum(rh[30,3])) }
       if ("sm_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[30,3] * rh[30,6] / sum(rh[30,3])) }
       if ("sm_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[30,3] * rh[30,7] / sum(rh[30,3])) }
@@ -859,15 +954,18 @@ summary.fsurf <- function(data.dir,
       if ("sm_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[30,2]) }
       if ("sm_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[30,3]) }
       if ("sm_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[30,4]) }
+      if ("sm_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[30,4]) }
       if ("sm_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[30,3] * lh[30,5] / sum(lh[30,3])) }
       if ("sm_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[30,3] * lh[30,6] / sum(lh[30,3])) }
       if ("sm_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[30,3] * lh[30,7] / sum(lh[30,3])) }
       if ("sm_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[30,3] * lh[30,8] / sum(lh[30,3])) }
       if ("sm_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[30,3] * lh[30,9] / sum(lh[30,3])) }
       if ("sm_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[30,3] * lh[30,10] / sum(lh[30,3])) }
+      
       if ("pc_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[22,2]) + sum(rh[22,2]) }
       if ("pc_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[22,3]) + sum(rh[22,3]) }
       if ("pc_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[22,4]) + sum(rh[22,4]) }
+      if ("pc_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[22,4]) + sum(wm[22+34,4]) }
       if ("pc_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[22,3] * lh[22,5] / sum(lh[22,3] + rh[22,3])) + sum(rh[22,3] * rh[22,5] / sum(lh[22,3] + rh[22,3])) }
       if ("pc_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[22,3] * lh[22,6] / sum(lh[22,3] + rh[22,3])) + sum(rh[22,3] * rh[22,6] / sum(lh[22,3] + rh[22,3])) }
       if ("pc_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[22,3] * lh[22,7] / sum(lh[22,3] + rh[22,3])) + sum(rh[22,3] * rh[22,7] / sum(lh[22,3] + rh[22,3])) }
@@ -877,6 +975,7 @@ summary.fsurf <- function(data.dir,
       if ("pc_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[22,2]) }
       if ("pc_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[22,3]) }
       if ("pc_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[22,4]) }
+      if ("pc_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[22+34,4]) }
       if ("pc_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[22,3] * rh[22,5] / sum(rh[22,3])) }
       if ("pc_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[22,3] * rh[22,6] / sum(rh[22,3])) }
       if ("pc_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[22,3] * rh[22,7] / sum(rh[22,3])) }
@@ -886,15 +985,18 @@ summary.fsurf <- function(data.dir,
       if ("pc_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[22,2]) }
       if ("pc_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[22,3]) }
       if ("pc_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[22,4]) }
+      if ("pc_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[22,4]) }
       if ("pc_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[22,3] * lh[22,5] / sum(lh[22,3])) }
       if ("pc_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[22,3] * lh[22,6] / sum(lh[22,3])) }
       if ("pc_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[22,3] * lh[22,7] / sum(lh[22,3])) }
       if ("pc_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[22,3] * lh[22,8] / sum(lh[22,3])) }
       if ("pc_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[22,3] * lh[22,9] / sum(lh[22,3])) }
       if ("pc_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[22,3] * lh[22,10] / sum(lh[22,3])) }
+      
       if ("ic_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[9,2]) + sum(rh[9,2]) }
       if ("ic_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[9,3]) + sum(rh[9,3]) }
       if ("ic_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[9,4]) + sum(rh[9,4]) }
+      if ("ic_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[9,4]) + sum(wm[9+34,4]) }
       if ("ic_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[9,3] * lh[9,5] / sum(lh[9,3] + rh[9,3])) + sum(rh[9,3] * rh[9,5] / sum(lh[9,3] + rh[9,3])) }
       if ("ic_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[9,3] * lh[9,6] / sum(lh[9,3] + rh[9,3])) + sum(rh[9,3] * rh[9,6] / sum(lh[9,3] + rh[9,3])) }
       if ("ic_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[9,3] * lh[9,7] / sum(lh[9,3] + rh[9,3])) + sum(rh[9,3] * rh[9,7] / sum(lh[9,3] + rh[9,3])) }
@@ -904,6 +1006,7 @@ summary.fsurf <- function(data.dir,
       if ("ic_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[9,2]) }
       if ("ic_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[9,3]) }
       if ("ic_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[9,4]) }
+      if ("ic_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[9+34,4]) }
       if ("ic_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[9,3] * rh[9,5] / sum(rh[9,3])) }
       if ("ic_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[9,3] * rh[9,6] / sum(rh[9,3])) }
       if ("ic_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[9,3] * rh[9,7] / sum(rh[9,3])) }
@@ -913,15 +1016,18 @@ summary.fsurf <- function(data.dir,
       if ("ic_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[9,2]) }
       if ("ic_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[9,3]) }
       if ("ic_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[9,4]) }
+      if ("ic_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[9,4]) }
       if ("ic_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[9,3] * lh[9,5] / sum(lh[9,3])) }
       if ("ic_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[9,3] * lh[9,6] / sum(lh[9,3])) }
       if ("ic_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[9,3] * lh[9,7] / sum(lh[9,3])) }
       if ("ic_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[9,3] * lh[9,8] / sum(lh[9,3])) }
       if ("ic_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[9,3] * lh[9,9] / sum(lh[9,3])) }
       if ("ic_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[9,3] * lh[9,10] / sum(lh[9,3])) }
+      
       if ("it_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[8,2]) + sum(rh[8,2]) }
       if ("it_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[8,3]) + sum(rh[8,3]) }
       if ("it_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[8,4]) + sum(rh[8,4]) }
+      if ("it_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[8,4]) + sum(wm[8+34,4]) }
       if ("it_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[8,3] * lh[8,5] / sum(lh[8,3] + rh[8,3])) + sum(rh[8,3] * rh[8,5] / sum(lh[8,3] + rh[8,3])) }
       if ("it_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[8,3] * lh[8,6] / sum(lh[8,3] + rh[8,3])) + sum(rh[8,3] * rh[8,6] / sum(lh[8,3] + rh[8,3])) }
       if ("it_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[8,3] * lh[8,7] / sum(lh[8,3] + rh[8,3])) + sum(rh[8,3] * rh[8,7] / sum(lh[8,3] + rh[8,3])) }
@@ -931,6 +1037,7 @@ summary.fsurf <- function(data.dir,
       if ("it_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[8,2]) }
       if ("it_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[8,3]) }
       if ("it_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[8,4]) }
+      if ("it_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[8+34,4]) }
       if ("it_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[8,3] * rh[8,5] / sum(rh[8,3])) }
       if ("it_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[8,3] * rh[8,6] / sum(rh[8,3])) }
       if ("it_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[8,3] * rh[8,7] / sum(rh[8,3])) }
@@ -940,15 +1047,18 @@ summary.fsurf <- function(data.dir,
       if ("it_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[8,2]) }
       if ("it_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[8,3]) }
       if ("it_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[8,4]) }
+      if ("it_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[8,4]) }
       if ("it_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[8,3] * lh[8,5] / sum(lh[8,3])) }
       if ("it_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[8,3] * lh[8,6] / sum(lh[8,3])) }
       if ("it_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[8,3] * lh[8,7] / sum(lh[8,3])) }
       if ("it_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[8,3] * lh[8,8] / sum(lh[8,3])) }
       if ("it_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[8,3] * lh[8,9] / sum(lh[8,3])) }
       if ("it_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[8,3] * lh[8,10] / sum(lh[8,3])) }
+      
       if ("mt_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[14,2]) + sum(rh[14,2]) }
       if ("mt_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[14,3]) + sum(rh[14,3]) }
       if ("mt_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[14,4]) + sum(rh[14,4]) }
+      if ("mt_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[14,4]) + sum(wm[14+34,4]) }
       if ("mt_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[14,3] * lh[14,5] / sum(lh[14,3] + rh[14,3])) + sum(rh[14,3] * rh[14,5] / sum(lh[14,3] + rh[14,3])) }
       if ("mt_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[14,3] * lh[14,6] / sum(lh[14,3] + rh[14,3])) + sum(rh[14,3] * rh[14,6] / sum(lh[14,3] + rh[14,3])) }
       if ("mt_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[14,3] * lh[14,7] / sum(lh[14,3] + rh[14,3])) + sum(rh[14,3] * rh[14,7] / sum(lh[14,3] + rh[14,3])) }
@@ -958,6 +1068,7 @@ summary.fsurf <- function(data.dir,
       if ("mt_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[14,2]) }
       if ("mt_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[14,3]) }
       if ("mt_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[14,4]) }
+      if ("mt_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[14+34,4]) }
       if ("mt_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[14,3] * rh[14,5] / sum(rh[14,3])) }
       if ("mt_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[14,3] * rh[14,6] / sum(rh[14,3])) }
       if ("mt_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[14,3] * rh[14,7] / sum(rh[14,3])) }
@@ -967,15 +1078,18 @@ summary.fsurf <- function(data.dir,
       if ("mt_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[14,2]) }
       if ("mt_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[14,3]) }
       if ("mt_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[14,4]) }
+      if ("mt_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[14,4]) }
       if ("mt_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[14,3] * lh[14,5] / sum(lh[14,3])) }
       if ("mt_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[14,3] * lh[14,6] / sum(lh[14,3])) }
       if ("mt_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[14,3] * lh[14,7] / sum(lh[14,3])) }
       if ("mt_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[14,3] * lh[14,8] / sum(lh[14,3])) }
       if ("mt_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[14,3] * lh[14,9] / sum(lh[14,3])) }
       if ("mt_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[14,3] * lh[14,10] / sum(lh[14,3])) }
+      
       if ("st_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[29,2]) + sum(rh[29,2]) }
       if ("st_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[29,3]) + sum(rh[29,3]) }
       if ("st_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[29,4]) + sum(rh[29,4]) }
+      if ("st_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[29,4]) + sum(wm[29+34,4]) }
       if ("st_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[29,3] * lh[29,5] / sum(lh[29,3] + rh[29,3])) + sum(rh[29,3] * rh[29,5] / sum(lh[29,3] + rh[29,3])) }
       if ("st_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[29,3] * lh[29,6] / sum(lh[29,3] + rh[29,3])) + sum(rh[29,3] * rh[29,6] / sum(lh[29,3] + rh[29,3])) }
       if ("st_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[29,3] * lh[29,7] / sum(lh[29,3] + rh[29,3])) + sum(rh[29,3] * rh[29,7] / sum(lh[29,3] + rh[29,3])) }
@@ -985,6 +1099,7 @@ summary.fsurf <- function(data.dir,
       if ("st_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[29,2]) }
       if ("st_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[29,3]) }
       if ("st_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[29,4]) }
+      if ("st_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[29+34,4]) }
       if ("st_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[29,3] * rh[29,5] / sum(rh[29,3])) }
       if ("st_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[29,3] * rh[29,6] / sum(rh[29,3])) }
       if ("st_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[29,3] * rh[29,7] / sum(rh[29,3])) }
@@ -994,15 +1109,18 @@ summary.fsurf <- function(data.dir,
       if ("st_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[29,2]) }
       if ("st_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[29,3]) }
       if ("st_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[29,4]) }
+      if ("st_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[29,4]) }
       if ("st_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[29,3] * lh[29,5] / sum(lh[29,3])) }
       if ("st_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[29,3] * lh[29,6] / sum(lh[29,3])) }
       if ("st_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[29,3] * lh[29,7] / sum(lh[29,3])) }
       if ("st_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[29,3] * lh[29,8] / sum(lh[29,3])) }
       if ("st_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[29,3] * lh[29,9] / sum(lh[29,3])) }
       if ("st_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[29,3] * lh[29,10] / sum(lh[29,3])) }
+      
       if ("tt_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[33,2]) + sum(rh[33,2]) }
       if ("tt_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[33,3]) + sum(rh[33,3]) }
       if ("tt_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[33,4]) + sum(rh[33,4]) }
+      if ("tt_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[33,4]) + sum(wm[33+34,4]) }
       if ("tt_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[33,3] * lh[33,5] / sum(lh[33,3] + rh[33,3])) + sum(rh[33,3] * rh[33,5] / sum(lh[33,3] + rh[33,3])) }
       if ("tt_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[33,3] * lh[33,6] / sum(lh[33,3] + rh[33,3])) + sum(rh[33,3] * rh[33,6] / sum(lh[33,3] + rh[33,3])) }
       if ("tt_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[33,3] * lh[33,7] / sum(lh[33,3] + rh[33,3])) + sum(rh[33,3] * rh[33,7] / sum(lh[33,3] + rh[33,3])) }
@@ -1012,6 +1130,7 @@ summary.fsurf <- function(data.dir,
       if ("tt_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[33,2]) }
       if ("tt_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[33,3]) }
       if ("tt_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[33,4]) }
+      if ("tt_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[33+34,4]) }
       if ("tt_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[33,3] * rh[33,5] / sum(rh[33,3])) }
       if ("tt_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[33,3] * rh[33,6] / sum(rh[33,3])) }
       if ("tt_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[33,3] * rh[33,7] / sum(rh[33,3])) }
@@ -1021,15 +1140,18 @@ summary.fsurf <- function(data.dir,
       if ("tt_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[33,2]) }
       if ("tt_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[33,3]) }
       if ("tt_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[33,4]) }
+      if ("tt_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[33,4]) }
       if ("tt_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[33,3] * lh[33,5] / sum(lh[33,3])) }
       if ("tt_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[33,3] * lh[33,6] / sum(lh[33,3])) }
       if ("tt_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[33,3] * lh[33,7] / sum(lh[33,3])) }
       if ("tt_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[33,3] * lh[33,8] / sum(lh[33,3])) }
       if ("tt_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[33,3] * lh[33,9] / sum(lh[33,3])) }
       if ("tt_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[33,3] * lh[33,10] / sum(lh[33,3])) }
+      
       if ("ph_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[15,2]) + sum(rh[15,2]) }
       if ("ph_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[15,3]) + sum(rh[15,3]) }
       if ("ph_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[15,4]) + sum(rh[15,4]) }
+      if ("ph_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[15,4]) + sum(wm[15+34,4]) }
       if ("ph_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[15,3] * lh[15,5] / sum(lh[15,3] + rh[15,3])) + sum(rh[15,3] * rh[15,5] / sum(lh[15,3] + rh[15,3])) }
       if ("ph_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[15,3] * lh[15,6] / sum(lh[15,3] + rh[15,3])) + sum(rh[15,3] * rh[15,6] / sum(lh[15,3] + rh[15,3])) }
       if ("ph_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[15,3] * lh[15,7] / sum(lh[15,3] + rh[15,3])) + sum(rh[15,3] * rh[15,7] / sum(lh[15,3] + rh[15,3])) }
@@ -1039,6 +1161,7 @@ summary.fsurf <- function(data.dir,
       if ("ph_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[15,2]) }
       if ("ph_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[15,3]) }
       if ("ph_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[15,4]) }
+      if ("ph_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[15+34,4]) }
       if ("ph_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[15,3] * rh[15,5] / sum(rh[15,3])) }
       if ("ph_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[15,3] * rh[15,6] / sum(rh[15,3])) }
       if ("ph_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[15,3] * rh[15,7] / sum(rh[15,3])) }
@@ -1048,15 +1171,18 @@ summary.fsurf <- function(data.dir,
       if ("ph_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[15,2]) }
       if ("ph_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[15,3]) }
       if ("ph_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[15,4]) }
+      if ("ph_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[15,4]) }
       if ("ph_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[15,3] * lh[15,5] / sum(lh[15,3])) }
       if ("ph_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[15,3] * lh[15,6] / sum(lh[15,3])) }
       if ("ph_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[15,3] * lh[15,7] / sum(lh[15,3])) }
       if ("ph_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[15,3] * lh[15,8] / sum(lh[15,3])) }
       if ("ph_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[15,3] * lh[15,9] / sum(lh[15,3])) }
       if ("ph_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[15,3] * lh[15,10] / sum(lh[15,3])) }
+      
       if ("fus_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[6,2]) + sum(rh[6,2]) }
       if ("fus_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[6,3]) + sum(rh[6,3]) }
       if ("fus_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[6,4]) + sum(rh[6,4]) }
+      if ("fus_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[6,4]) + sum(wm[6+34,4]) }
       if ("fus_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[6,3] * lh[6,5] / sum(lh[6,3] + rh[6,3])) + sum(rh[6,3] * rh[6,5] / sum(lh[6,3] + rh[6,3])) }
       if ("fus_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[6,3] * lh[6,6] / sum(lh[6,3] + rh[6,3])) + sum(rh[6,3] * rh[6,6] / sum(lh[6,3] + rh[6,3])) }
       if ("fus_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[6,3] * lh[6,7] / sum(lh[6,3] + rh[6,3])) + sum(rh[6,3] * rh[6,7] / sum(lh[6,3] + rh[6,3])) }
@@ -1066,6 +1192,7 @@ summary.fsurf <- function(data.dir,
       if ("fus_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[6,2]) }
       if ("fus_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[6,3]) }
       if ("fus_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[6,4]) }
+      if ("fus_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[6+34,4]) }
       if ("fus_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[6,3] * rh[6,5] / sum(rh[6,3])) }
       if ("fus_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[6,3] * rh[6,6] / sum(rh[6,3])) }
       if ("fus_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[6,3] * rh[6,7] / sum(rh[6,3])) }
@@ -1075,15 +1202,18 @@ summary.fsurf <- function(data.dir,
       if ("fus_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[6,2]) }
       if ("fus_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[6,3]) }
       if ("fus_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[6,4]) }
+      if ("fus_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[6,4]) }
       if ("fus_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[6,3] * lh[6,5] / sum(lh[6,3])) }
       if ("fus_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[6,3] * lh[6,6] / sum(lh[6,3])) }
       if ("fus_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[6,3] * lh[6,7] / sum(lh[6,3])) }
       if ("fus_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[6,3] * lh[6,8] / sum(lh[6,3])) }
       if ("fus_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[6,3] * lh[6,9] / sum(lh[6,3])) }
       if ("fus_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[6,3] * lh[6,10] / sum(lh[6,3])) }
+      
       if ("bsts_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[1,2]) + sum(rh[1,2]) }
       if ("bsts_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[1,3]) + sum(rh[1,3]) }
       if ("bsts_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[1,4]) + sum(rh[1,4]) }
+      if ("bsts_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[1,4]) + sum(wm[1+34,4]) }
       if ("bsts_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[1,3] * lh[1,5] / sum(lh[1,3] + rh[1,3])) + sum(rh[1,3] * rh[1,5] / sum(lh[1,3] + rh[1,3])) }
       if ("bsts_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[1,3] * lh[1,6] / sum(lh[1,3] + rh[1,3])) + sum(rh[1,3] * rh[1,6] / sum(lh[1,3] + rh[1,3])) }
       if ("bsts_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[1,3] * lh[1,7] / sum(lh[1,3] + rh[1,3])) + sum(rh[1,3] * rh[1,7] / sum(lh[1,3] + rh[1,3])) }
@@ -1093,6 +1223,7 @@ summary.fsurf <- function(data.dir,
       if ("bsts_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[1,2]) }
       if ("bsts_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[1,3]) }
       if ("bsts_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[1,4]) }
+      if ("bsts_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[1+34,4]) }
       if ("bsts_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[1,3] * rh[1,5] / sum(rh[1,3])) }
       if ("bsts_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[1,3] * rh[1,6] / sum(rh[1,3])) }
       if ("bsts_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[1,3] * rh[1,7] / sum(rh[1,3])) }
@@ -1102,15 +1233,18 @@ summary.fsurf <- function(data.dir,
       if ("bsts_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[1,2]) }
       if ("bsts_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[1,3]) }
       if ("bsts_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[1,4]) }
+      if ("bsts_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[1,4]) }
       if ("bsts_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[1,3] * lh[1,5] / sum(lh[1,3])) }
       if ("bsts_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[1,3] * lh[1,6] / sum(lh[1,3])) }
       if ("bsts_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[1,3] * lh[1,7] / sum(lh[1,3])) }
       if ("bsts_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[1,3] * lh[1,8] / sum(lh[1,3])) }
       if ("bsts_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[1,3] * lh[1,9] / sum(lh[1,3])) }
       if ("bsts_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[1,3] * lh[1,10] / sum(lh[1,3])) }
+      
       if ("er_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[5,2]) + sum(rh[5,2]) }
       if ("er_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[5,3]) + sum(rh[5,3]) }
       if ("er_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[5,4]) + sum(rh[5,4]) }
+      if ("er_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[5,4]) + sum(wm[5+34,4]) }
       if ("er_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[5,3] * lh[5,5] / sum(lh[5,3] + rh[5,3])) + sum(rh[5,3] * rh[5,5] / sum(lh[5,3] + rh[5,3])) }
       if ("er_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[5,3] * lh[5,6] / sum(lh[5,3] + rh[5,3])) + sum(rh[5,3] * rh[5,6] / sum(lh[5,3] + rh[5,3])) }
       if ("er_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[5,3] * lh[5,7] / sum(lh[5,3] + rh[5,3])) + sum(rh[5,3] * rh[5,7] / sum(lh[5,3] + rh[5,3])) }
@@ -1120,6 +1254,7 @@ summary.fsurf <- function(data.dir,
       if ("er_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[5,2]) }
       if ("er_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[5,3]) }
       if ("er_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[5,4]) }
+      if ("er_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[5+34,4]) }
       if ("er_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[5,3] * rh[5,5] / sum(rh[5,3])) }
       if ("er_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[5,3] * rh[5,6] / sum(rh[5,3])) }
       if ("er_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[5,3] * rh[5,7] / sum(rh[5,3])) }
@@ -1129,15 +1264,18 @@ summary.fsurf <- function(data.dir,
       if ("er_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[5,2]) }
       if ("er_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[5,3]) }
       if ("er_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[5,4]) }
+      if ("er_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[5,4]) }
       if ("er_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[5,3] * lh[5,5] / sum(lh[5,3])) }
       if ("er_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[5,3] * lh[5,6] / sum(lh[5,3])) }
       if ("er_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[5,3] * lh[5,7] / sum(lh[5,3])) }
       if ("er_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[5,3] * lh[5,8] / sum(lh[5,3])) }
       if ("er_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[5,3] * lh[5,9] / sum(lh[5,3])) }
       if ("er_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[5,3] * lh[5,10] / sum(lh[5,3])) }
+      
       if ("tp_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[32,2]) + sum(rh[32,2]) }
       if ("tp_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[32,3]) + sum(rh[32,3]) }
       if ("tp_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[32,4]) + sum(rh[32,4]) }
+      if ("tp_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[32,4]) + sum(wm[32+34,4]) }
       if ("tp_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[32,3] * lh[32,5] / sum(lh[32,3] + rh[32,3])) + sum(rh[32,3] * rh[32,5] / sum(lh[32,3] + rh[32,3])) }
       if ("tp_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[32,3] * lh[32,6] / sum(lh[32,3] + rh[32,3])) + sum(rh[32,3] * rh[32,6] / sum(lh[32,3] + rh[32,3])) }
       if ("tp_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[32,3] * lh[32,7] / sum(lh[32,3] + rh[32,3])) + sum(rh[32,3] * rh[32,7] / sum(lh[32,3] + rh[32,3])) }
@@ -1147,6 +1285,7 @@ summary.fsurf <- function(data.dir,
       if ("tp_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[32,2]) }
       if ("tp_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[32,3]) }
       if ("tp_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[32,4]) }
+      if ("tp_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[32+34,4]) }
       if ("tp_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[32,3] * rh[32,5] / sum(rh[32,3])) }
       if ("tp_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[32,3] * rh[32,6] / sum(rh[32,3])) }
       if ("tp_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[32,3] * rh[32,7] / sum(rh[32,3])) }
@@ -1156,15 +1295,18 @@ summary.fsurf <- function(data.dir,
       if ("tp_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[32,2]) }
       if ("tp_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[32,3]) }
       if ("tp_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[32,4]) }
+      if ("tp_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[32,4]) }
       if ("tp_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[32,3] * lh[32,5] / sum(lh[32,3])) }
       if ("tp_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[32,3] * lh[32,6] / sum(lh[32,3])) }
       if ("tp_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[32,3] * lh[32,7] / sum(lh[32,3])) }
       if ("tp_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[32,3] * lh[32,8] / sum(lh[32,3])) }
       if ("tp_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[32,3] * lh[32,9] / sum(lh[32,3])) }
       if ("tp_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[32,3] * lh[32,10] / sum(lh[32,3])) }
+      
       if ("cun_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[4,2]) + sum(rh[4,2]) }
       if ("cun_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[4,3]) + sum(rh[4,3]) }
       if ("cun_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[4,4]) + sum(rh[4,4]) }
+      if ("cun_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[4,4]) + sum(wm[4+34,4]) }
       if ("cun_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[4,3] * lh[4,5] / sum(lh[4,3] + rh[4,3])) + sum(rh[4,3] * rh[4,5] / sum(lh[4,3] + rh[4,3])) }
       if ("cun_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[4,3] * lh[4,6] / sum(lh[4,3] + rh[4,3])) + sum(rh[4,3] * rh[4,6] / sum(lh[4,3] + rh[4,3])) }
       if ("cun_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[4,3] * lh[4,7] / sum(lh[4,3] + rh[4,3])) + sum(rh[4,3] * rh[4,7] / sum(lh[4,3] + rh[4,3])) }
@@ -1174,6 +1316,7 @@ summary.fsurf <- function(data.dir,
       if ("cun_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[4,2]) }
       if ("cun_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[4,3]) }
       if ("cun_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[4,4]) }
+      if ("cun_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[4+34,4]) }
       if ("cun_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[4,3] * rh[4,5] / sum(rh[4,3])) }
       if ("cun_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[4,3] * rh[4,6] / sum(rh[4,3])) }
       if ("cun_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[4,3] * rh[4,7] / sum(rh[4,3])) }
@@ -1183,15 +1326,18 @@ summary.fsurf <- function(data.dir,
       if ("cun_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[4,2]) }
       if ("cun_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[4,3]) }
       if ("cun_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[4,4]) }
+      if ("cun_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[4,4]) }
       if ("cun_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[4,3] * lh[4,5] / sum(lh[4,3])) }
       if ("cun_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[4,3] * lh[4,6] / sum(lh[4,3])) }
       if ("cun_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[4,3] * lh[4,7] / sum(lh[4,3])) }
       if ("cun_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[4,3] * lh[4,8] / sum(lh[4,3])) }
       if ("cun_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[4,3] * lh[4,9] / sum(lh[4,3])) }
       if ("cun_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[4,3] * lh[4,10] / sum(lh[4,3])) }
+      
       if ("lo_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[10,2]) + sum(rh[10,2]) }
       if ("lo_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[10,3]) + sum(rh[10,3]) }
       if ("lo_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[10,4]) + sum(rh[10,4]) }
+      if ("lo_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[10,4]) + sum(wm[10+34,4]) }
       if ("lo_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[10,3] * lh[10,5] / sum(lh[10,3] + rh[10,3])) + sum(rh[10,3] * rh[10,5] / sum(lh[10,3] + rh[10,3])) }
       if ("lo_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[10,3] * lh[10,6] / sum(lh[10,3] + rh[10,3])) + sum(rh[10,3] * rh[10,6] / sum(lh[10,3] + rh[10,3])) }
       if ("lo_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[10,3] * lh[10,7] / sum(lh[10,3] + rh[10,3])) + sum(rh[10,3] * rh[10,7] / sum(lh[10,3] + rh[10,3])) }
@@ -1201,6 +1347,7 @@ summary.fsurf <- function(data.dir,
       if ("lo_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[10,2]) }
       if ("lo_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[10,3]) }
       if ("lo_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[10,4]) }
+      if ("lo_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[10+34,4]) }
       if ("lo_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[10,3] * rh[10,5] / sum(rh[10,3])) }
       if ("lo_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[10,3] * rh[10,6] / sum(rh[10,3])) }
       if ("lo_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[10,3] * rh[10,7] / sum(rh[10,3])) }
@@ -1210,15 +1357,18 @@ summary.fsurf <- function(data.dir,
       if ("lo_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[10,2]) }
       if ("lo_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[10,3]) }
       if ("lo_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[10,4]) }
+      if ("lo_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[10,4]) }
       if ("lo_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[10,3] * lh[10,5] / sum(lh[10,3])) }
       if ("lo_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[10,3] * lh[10,6] / sum(lh[10,3])) }
       if ("lo_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[10,3] * lh[10,7] / sum(lh[10,3])) }
       if ("lo_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[10,3] * lh[10,8] / sum(lh[10,3])) }
       if ("lo_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[10,3] * lh[10,9] / sum(lh[10,3])) }
       if ("lo_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[10,3] * lh[10,10] / sum(lh[10,3])) }
+      
       if ("ling_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[12,2]) + sum(rh[12,2]) }
       if ("ling_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[12,3]) + sum(rh[12,3]) }
       if ("ling_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[12,4]) + sum(rh[12,4]) }
+      if ("ling_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[12,4]) + sum(wm[12+34,4]) }
       if ("ling_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[12,3] * lh[12,5] / sum(lh[12,3] + rh[12,3])) + sum(rh[12,3] * rh[12,5] / sum(lh[12,3] + rh[12,3])) }
       if ("ling_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[12,3] * lh[12,6] / sum(lh[12,3] + rh[12,3])) + sum(rh[12,3] * rh[12,6] / sum(lh[12,3] + rh[12,3])) }
       if ("ling_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[12,3] * lh[12,7] / sum(lh[12,3] + rh[12,3])) + sum(rh[12,3] * rh[12,7] / sum(lh[12,3] + rh[12,3])) }
@@ -1228,6 +1378,7 @@ summary.fsurf <- function(data.dir,
       if ("ling_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[12,2]) }
       if ("ling_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[12,3]) }
       if ("ling_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[12,4]) }
+      if ("ling_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[12+34,4]) }
       if ("ling_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[12,3] * rh[12,5] / sum(rh[12,3])) }
       if ("ling_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[12,3] * rh[12,6] / sum(rh[12,3])) }
       if ("ling_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[12,3] * rh[12,7] / sum(rh[12,3])) }
@@ -1237,15 +1388,18 @@ summary.fsurf <- function(data.dir,
       if ("ling_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[12,2]) }
       if ("ling_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[12,3]) }
       if ("ling_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[12,4]) }
+      if ("ling_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[12,4]) }
       if ("ling_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[12,3] * lh[12,5] / sum(lh[12,3])) }
       if ("ling_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[12,3] * lh[12,6] / sum(lh[12,3])) }
       if ("ling_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[12,3] * lh[12,7] / sum(lh[12,3])) }
       if ("ling_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[12,3] * lh[12,8] / sum(lh[12,3])) }
       if ("ling_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[12,3] * lh[12,9] / sum(lh[12,3])) }
       if ("ling_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[12,3] * lh[12,10] / sum(lh[12,3])) }
+      
       if ("peric_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[20,2]) + sum(rh[20,2]) }
       if ("peric_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[20,3]) + sum(rh[20,3]) }
       if ("peric_t_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[20,4]) + sum(rh[20,4]) }
+      if ("peric_t_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[20,4]) + sum(wm[20+34,4]) }
       if ("peric_t_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[20,3] * lh[20,5] / sum(lh[20,3] + rh[20,3])) + sum(rh[20,3] * rh[20,5] / sum(lh[20,3] + rh[20,3])) }
       if ("peric_t_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[20,3] * lh[20,6] / sum(lh[20,3] + rh[20,3])) + sum(rh[20,3] * rh[20,6] / sum(lh[20,3] + rh[20,3])) }
       if ("peric_t_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[20,3] * lh[20,7] / sum(lh[20,3] + rh[20,3])) + sum(rh[20,3] * rh[20,7] / sum(lh[20,3] + rh[20,3])) }
@@ -1255,6 +1409,7 @@ summary.fsurf <- function(data.dir,
       if ("peric_r_n" %in% var.names ) { out[length(out) + 1] <- sum(rh[20,2]) }
       if ("peric_r_sa" %in% var.names ) { out[length(out) + 1] <- sum(rh[20,3]) }
       if ("peric_r_g" %in% var.names ) { out[length(out) + 1] <- sum(rh[20,4]) }
+      if ("peric_r_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[20+34,4]) }
       if ("peric_r_ta" %in% var.names ) { out[length(out) + 1] <- sum(rh[20,3] * rh[20,5] / sum(rh[20,3])) }
       if ("peric_r_tsd" %in% var.names ) { out[length(out) + 1] <- sum(rh[20,3] * rh[20,6] / sum(rh[20,3])) }
       if ("peric_r_mc" %in% var.names ) { out[length(out) + 1] <- sum(rh[20,3] * rh[20,7] / sum(rh[20,3])) }
@@ -1264,6 +1419,7 @@ summary.fsurf <- function(data.dir,
       if ("peric_l_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[20,2]) }
       if ("peric_l_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[20,3]) }
       if ("peric_l_g" %in% var.names ) { out[length(out) + 1] <- sum(lh[20,4]) }
+      if ("peric_l_w" %in% var.names ) { out[length(out) + 1] <- sum(wm[20,4]) }
       if ("peric_l_ta" %in% var.names ) { out[length(out) + 1] <- sum(lh[20,3] * lh[20,5] / sum(lh[20,3])) }
       if ("peric_l_tsd" %in% var.names ) { out[length(out) + 1] <- sum(lh[20,3] * lh[20,6] / sum(lh[20,3])) }
       if ("peric_l_mc" %in% var.names ) { out[length(out) + 1] <- sum(lh[20,3] * lh[20,7] / sum(lh[20,3])) }
