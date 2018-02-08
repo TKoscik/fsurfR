@@ -17,11 +17,13 @@ summary.fsurf <- function(data.dir,
   n.sjx <- length(sjx)
   
   if ("all" %in% vars) {
-    vars <- c("n", "sa", "g", "ta", "tsd", "mc", "gc", "fi", "ci")
+    vars <- c("n", "sa", "g", "w", "ta", "tsd", "mc", "gc", "fi", "ci")
   }
   if ("all" %in% sub.vars) {
     sub.vars <- c("n", "v", "nm", "nsd", "nmin", "nmax", "nrng")
   }
+  load.wm <- FALSE
+  if ("w" %in% vars) { load.wm <- TRUE }
   
   load.sub <- FALSE
   if (any(c("peg", "ell", "all", "cx", "sub", "wm", "vnt") %in% rois)) {
@@ -143,6 +145,15 @@ summary.fsurf <- function(data.dir,
         run.sjx <- FALSE
       }
     }
+    
+    if (load.wm) {
+      if (file.exists(paste0(data.dir, "/", sjx[i], "/stats/wmparc.stats"))) {
+        wm <- read.fsurf.stats(paste0(data.dir, "/", sjx[i], "/stats/wmparc.stats"))
+      } else {
+        run.sjx <- FALSE
+      }
+    }
+    
     
     if (run.sjx) {
       f.num <- c(3,11,13,31,18,19,26,27,16,23,17,2,25,34)
