@@ -85,6 +85,9 @@ summary.fsurf <- function(data.dir,
   sub.ls <- c("cgm", "thal", "caud", "put", "pall", "bs", "hpc", "amg", "acc", "vdc", 
               "cwm",  "oc", "ccp", "ccmp", "ccc", "ccma", "cca",
               "lv", "ilv", "v3", "v4", "v5", "csf", "ves", "cp", "wmhyp", "nwmhyp")
+  if (any(sub.ls %in% rois)) { load.sub <- TRUE }
+  
+  
   var.names <- character()
   for (j in 1:length(rois)) {
     for (i in 1:length(hemi)) {
@@ -433,7 +436,6 @@ summary.fsurf <- function(data.dir,
       if ("lof_l_gc" %in% var.names ) { out[length(out) + 1] <- sum(lh[11,3] * lh[11,8] / sum(lh[11,3])) }
       if ("lof_l_fi" %in% var.names ) { out[length(out) + 1] <- sum(lh[11,3] * lh[11,9] / sum(lh[11,3])) }
       if ("lof_l_ci" %in% var.names ) { out[length(out) + 1] <- sum(lh[11,3] * lh[11,10] / sum(lh[11,3])) }
-      
       
       if ("mof_t_n" %in% var.names ) { out[length(out) + 1] <- sum(lh[13,2]) + sum(rh[13,2]) }
       if ("mof_t_sa" %in% var.names ) { out[length(out) + 1] <- sum(lh[13,3]) + sum(rh[13,3]) }
