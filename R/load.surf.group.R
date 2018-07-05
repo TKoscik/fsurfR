@@ -31,7 +31,7 @@ load.surf.group <- function(data.dir,
     dist.vtx <- tolerance - dist.vtx[which.vtx]
     
     
-    if (length(sjx.vtx) != 0) {
+    if (length(dist.vtx) != 0) {
       for (j in 1:var.name) {
         curv.val <- read.curv.vertex(fls[i,j+1], n=which.vtx)
         df[i,j] <- sum(curv.val * dist.vtx)/sum(dist.vtx)
