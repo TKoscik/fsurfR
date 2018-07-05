@@ -22,43 +22,23 @@ load.surf.group <- function(data.dir,
   df <- data.frame(matrix(0, nrow=n.sjx, ncol=n.var))
   colnames(df) <- paste(hemi, var.name, sep = ".")
   for (i in 1:n.sjx) {
-    sjx.surf <- read.surf(fls[i,1])
-    
-    dist.vtx <- sqrt((group.surf$vertex[which.vertex,1] - sjx.surf$vertex[ ,1])^2 + 
-                     (group.surf$vertex[which.vertex,2] - sjx.surf$vertex[ ,2])^2 + 
-                     (group.surf$vertex[which.vertex,3] - sjx.surf$vertex[ ,3])^2)
-    which.vtx <- which(dist.vtx < tolerance)
-    dist.vtx <- tolerance - dist.vtx[which.vtx]
-    
-    
-    if (length(dist.vtx) != 0) {
-      for (j in 1:n.var) {
-        curv.val <- read.curv.vertex(fls[i,j+1], n=which.vtx)
-        df[i,j] <- sum(curv.val * dist.vtx)/sum(dist.vtx)
+    if (file.exists(fls[i,1])) {
+      sjx.surf <- read.surf(fls[i,1])
+      dist.vtx <- sqrt((group.surf$vertex[which.vertex,1] - sjx.surf$vertex[ ,1])^2 + 
+                         (group.surf$vertex[which.vertex,2] - sjx.surf$vertex[ ,2])^2 + 
+                         (group.surf$vertex[which.vertex,3] - sjx.surf$vertex[ ,3])^2)
+      which.vtx <- which(dist.vtx < tolerance)
+      dist.vtx <- tolerance - dist.vtx[which.vtx]
+      
+      if (length(dist.vtx) != 0) {
+        for (j in 1:n.var) {
+          curv.val <- read.curv.vertex(fls[i,j+1], n=which.vtx)
+          df[i,j] <- sum(curv.val * dist.vtx)/sum(dist.vtx)
+        }
       }
+    } else {
+      df[i, ] <- NA
     }
-    
-    
-    # sjx.vtx <- sjx.surf$vertex[sjx.surf$vertex[ ,1] > (group.surf$vertex[which.vertex, 1] - tolerance), ]
-    # sjx.vtx <- sjx.vtx[sjx.vtx[ ,1] < (group.surf$vertex[which.vertex, 1] + tolerance), ]
-    # sjx.vtx <- sjx.vtx[sjx.vtx[ ,2] > (group.surf$vertex[which.vertex, 2] - tolerance), ]
-    # sjx.vtx <- sjx.vtx[sjx.vtx[ ,2] < (group.surf$vertex[which.vertex, 2] + tolerance), ]
-    # sjx.vtx <- sjx.vtx[sjx.vtx[ ,3] > (group.surf$vertex[which.vertex, 3] - tolerance), ]
-    # sjx.vtx <- sjx.vtx[sjx.vtx[ ,3] < (group.surf$vertex[which.vertex, 3] + tolerance), ]
-    # sjx.vtx <- matrix(sjx.vtx, ncol=3)
-    # 
-    # vtx.temp <- rbind(sjx.vtx, group.surf$vertex[which.vertex, ])
-    # dist.vec <- as.matrix(dist(vtx.temp))[1:(nrow(vtx.temp)-1),nrow(vtx.temp)]
-    # dist.vec <- 1 - (dist.vec - mean(dist.vec))
-    # dist.vec <- dist.vec / sum(dist.vec)
-    # 
-    # for (j in 1:n.var) {
-    #   val.temp <- read.curv.vertex(curv.file = fls[i, j+1],
-    #                                surf.file = fls[i, 1],
-    #                                coords = sjx.vtx)
-    #   df[i,j] <- sum(val.temp * dist.vec)
-    # }
-    # print(sprintf("%0.0f of %0.0f", i, n.sjx))
   }
   return(df)
 }
