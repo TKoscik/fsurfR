@@ -27,15 +27,12 @@ table.to.curv <- function(in.table,
                   append=TRUE, quote=FALSE, sep=",",
                   row.names=FALSE, col.names=FALSE)
     }
-    
     write.table(paste0("Table: ", var.name), log.name,
                 append=TRUE, quote=FALSE, sep=",",
                 row.names=FALSE, col.names=FALSE)
-    
     write.table(paste0("NII File: ", colnames(in.table)), log.name,
                 append=TRUE, quote=FALSE, sep=",",
                 row.names=FALSE, col.names=FALSE)
-    
     write.table(paste0("Volume ", 1:nrow(in.table), ": ", rownames(in.table)),
                 log.name,
                 append=TRUE, quote=FALSE, sep=",",
@@ -59,7 +56,6 @@ table.to.curv <- function(in.table,
         if (is.null(coords)) {
           write.curv.vertex(fname, n, value=in.table[j,i])
         } else {
-          
           write.curv.vertex(fname, value=in.table[j,i],
                             surf.file=surf.file, coords = coords)
         }
