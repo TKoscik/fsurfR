@@ -52,7 +52,6 @@ write.curv.vertex <- function(curv.file, n, values, surf.file=NULL, coords=NULL)
     invisible(seek(fid, hdr.offset, origin="start", rw="write"))
     writeBin(values, fid, size=4, endian=endian)
   } else {
-    values <- numeric(length(n))
     for (i in 1:length(n)) {
       invisible(seek(fid, hdr.offset+n.bytes*n[i], origin="start", rw="write"))
       writeBin(values[i], fid, size=4, endian=endian)

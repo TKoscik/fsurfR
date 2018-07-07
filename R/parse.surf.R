@@ -5,8 +5,8 @@ parse.surf <- function(root.dir,
                                     "volume", "w-g.pct", "jacobian_white")) {
   
   sjx.ls <- list.dirs(path = root.dir, full.names = FALSE, recursive = FALSE)
-  if (sjx.ls[length(sjx.ls)] == "fsaverage") {
-    sjx.ls <- sjx.ls[-length(sjx.ls)]
+  if ("fsaverage" %in% sjx.ls) {
+    sjx.ls <- sjx.ls[-which(sjx.ls == "fsaverage")]
   }
   if (length(which.sjx) == 1 & which.sjx[1] == "all") {
   } else {
