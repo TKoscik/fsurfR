@@ -40,18 +40,29 @@ table.to.curv <- function(in.table,
   }
   
   for (i in 1:ncol(in.table)) {
-    if (!is.null(colnames(in.table))) {
-      suffix <- colnames(in.table)[i]
-      suffix <- gsub("[[:punct:]]", "", suffix) # Remove invalid characters
-      suffix <- gsub("[[:space:]]", "", suffix)
-    } else {
-      suffix <- paste0("X", i) # if table is unnamed call it X
-    }
-    fname <- paste0(save.dir, "/", prefix, ".", var.name, ".", suffix)
-    if (!file.exists(fname)) {
-      init.curv(file.name=fname, surf.file = surf.file)
-    }
     for (j in 1:nrow(in.table)) {
+      if (!is.null(colnames(in.table))) {
+        col.suffix <- colnames(in.table)[i]
+        col.suffix <- gsub("[[:punct:]]", "", col.suffix) # Remove invalid characters
+        col.suffix <- gsub("[[:space:]]", "", col.suffix)
+      } else {
+        col.suffix <- paste0("X", i) # if table is unnamed call it X
+      }
+      
+      if (!is.null(rownames(in.table))) {
+        row.suffix <- rownames(in.table)[j]
+        row.suffix <- gsub("[:]", "X", row.suffix)
+        row.suffix <- gsub("[[:punct:]]", "", row.suffix) # Remove invalid characters
+        row.suffix <- gsub("[[:space:]]", "", row.suffix)
+      } else {
+        row.suffix <- paste0("X", i) # if table is unnamed call it X
+      }
+      
+      fname <- paste0(save.dir, "/", prefix, ".", var.name, ".", col.suffix, ".", row.suffix)
+      
+      if (!file.exists(fname)) {
+        init.curv(file.name=fname, surf.file = surf.file)
+      }
       if (!is.na(in.table[j,i])) {
         if (is.null(coords)) {
           write.curv.vertex(fname, n, value=in.table[j,i])
