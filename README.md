@@ -1,7 +1,7 @@
 # fsurfR
-Author: T.R. Koscik, timkoscik+fsurfr@gmail.com
-Date: July 2018
-Copyright (C) 2018 Koscik, Timothy R. All Rights Reserved
+Author: T.R. Koscik, timkoscik+fsurfr@gmail.com  
+Date: July 2018  
+Copyright (C) 2018 Koscik, Timothy R. All Rights Reserved  
 
 ## Utilities for Freesurfer MGH,CURV,SURF File I/O and Vertex-wise Analysis
 
