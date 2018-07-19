@@ -14,7 +14,7 @@ devtools::install_github("TKoscik/fsurfR")
 
 ****
 
-## Below is an example script to conduct vertexwise analyses using the fsurfR package.
+## Below is an example script to conduct vertexwise analyses.
 
 ### Clear environment
 ```
