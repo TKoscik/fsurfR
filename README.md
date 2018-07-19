@@ -1,30 +1,37 @@
 # fsurfR
+## Author: T.R. Koscik, timkoscik+fsurfr@gmail.com
+## Date: July 2018
+## Copyright (C) 2018 Koscik, Timothy R. All Rights Reserved
+
 Utilities for Freesurfer MGH I/O
 
-```
-# ------------------------------------------------------------------------------
-# Below is an example script to conduct vertexwise analyses using the fsurfR
-# package. This package is available on github.com at:
-#     https://github.com/TKoscik/fsurfR
-# To install this package, use devtools.
-#     devtools::install_github("TKoscik/fsurfR")
-# Author: T.R. Koscik, timkoscik+fsurfr@gmail.com
-# Date: July 2018
-# 
-# Copyright (C) 2018 Koscik, Timothy R. All Rights Reserved
-# ------------------------------------------------------------------------------
+****
 
-# Clear environment ------------------------------------------------------------
+## To install this package, use devtools.
+```
+devtools::install_github("TKoscik/fsurfR")
+```
+
+****
+
+## Below is an example script to conduct vertexwise analyses using the fsurfR package.
+
+### Clear environment
+```
 rm(list=ls())
 gc()
+```
 
-# Load necessary and desired libraries -----------------------------------------
+### Load necessary and desired libraries
+```
 library(fsurfR)
 library(parallel)
 library(doParallel)
 library(car)
+```
 
-# Inititialize variables -------------------------------------------------------
+### Initialize variables
+```
 data.dir <- "/freesurfer/subjects/directory"
 save.dir <- "/location/to/save/output"
 prefix <- "vertex.analysis.lh" # will be appended to output file names,
@@ -36,14 +43,18 @@ which.sjx <- "all"
 var.name <- c("area", "thickness")
 n.vtx <- read.surf(surf.file)$n.vertex
 tolerance <- 1 # maximum distance to vertex to calculate weighted average
+```
 
-# Set up models ----------------------------------------------------------------
-# freesurfer variables will be named by hemisphere then the variable name
-# e.g., rh.thickness, rh.area, rh.curv
+### Set up models
+#### freesurfer variables will be named by hemisphere then the variable name
+#### e.g., rh.thickness, rh.area, rh.curv
+```
 FORM <- c(formula(paste0(which.hemi, ".thickness ~ group + age + sex")), 
           formula(paste0(which.hemi, ".area ~ group + age + sex")))
+```
 
-# Code within model.fxn (below) will be run vertexwise -------------------------
+### Code within model.fxn (below) will be run vertexwise
+```
 model.fxn <- function(X, ...) {
   vtx.vals <- load.surf.group(data.dir, which.sjx, which.hemi,
                               var.name, X, tolerance)
@@ -61,14 +72,20 @@ model.fxn <- function(X, ...) {
   table.to.curv(area.coef, X, surf.file, coords=NULL, save.dir, prefix, mdl2)
   table.to.curv(area.aov, X, surf.file, coords=NULL, save.dir, prefix, mdl2)
 }
+```
 
-# Setup parallelization --------------------------------------------------------
+### Setup parallelization
+```
 num.cores <- detectCores()
 registerDoParallel(num.cores)
+```
 
-# Run models -------------------------------------------------------------------
+### Run models
+```
 foreach(X=1:n.vtx) %dopar% model.fxn(X)
+```
 
-# Stop parallelization ---------------------------------------------------------
+### Stop parallelization
+```
 stopImplicitCluster()
 ```
