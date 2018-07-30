@@ -10,7 +10,7 @@ table.to.curv <- function(in.table,
   # Copyright (C) 2018 Koscik, Timothy R. All Rights Reserved
   # ----------------------------------------------------------------------------
   
-  var.name <- deparse(subsitute(in.table)) # retriev table name
+  var.name <- deparse(substitute(in.table)) # retriev table name
   
   if (!is.matrix(in.table) | !is.data.frame(in.table)) {
     in.table <- as.matrix(in.table)
