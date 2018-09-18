@@ -30,10 +30,10 @@ table.to.curv <- function(in.table,
     write.table(paste0("Table: ", var.name), log.name,
                 append=TRUE, quote=FALSE, sep=",",
                 row.names=FALSE, col.names=FALSE)
-    write.table(paste0("NII File: ", colnames(in.table)), log.name,
+    write.table(paste0("Variable File: ", colnames(in.table)), log.name,
                 append=TRUE, quote=FALSE, sep=",",
                 row.names=FALSE, col.names=FALSE)
-    write.table(paste0("Volume ", 1:nrow(in.table), ": ", rownames(in.table)),
+    write.table(paste0("Effect ", 1:nrow(in.table), ": ", rownames(in.table)),
                 log.name,
                 append=TRUE, quote=FALSE, sep=",",
                 row.names=FALSE, col.names=FALSE)
