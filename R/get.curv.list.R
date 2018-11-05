@@ -5,7 +5,7 @@ get.curv.list <- function(data.dir,
   outls <- character(length(id.ls))
   fls <- character(0)
   for (i in 1:length(data.dir)) {
-    fls <- c(fls, list.files(data.dir[j], pattern=hemi, full.names = TRUE))
+    fls <- c(fls, list.files(data.dir[i], pattern=hemi, full.names = TRUE))
   }
   fls <- fls[grepl(pattern = var.name, fls)]
   for (i in 1:length(id.ls)) {
