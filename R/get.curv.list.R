@@ -9,15 +9,20 @@ get.curv.list <- function(data.dir,
   }
   fls <- fls[grepl(pattern = var.name, fls)]
   for (i in 1:length(id.ls)) {
-    fname <- fls[grepl(pattern=id.ls[i], fls)]
-    if (length(fname) == 0) {
-      print(sprintf("Error: Could not find file for %s", as.character(id.ls[i])))
-      outls[i] <- NA
-    } else if (length(fname) > 1) {
-      print(sprintf("Error: Found multiple files for %s, using first found entry.", as.character(id.ls[i])))
-      outls[i] <- fname[1]
+    if (!is.na(id.ls[i])) {
+      fname <- fls[grepl(pattern=id.ls[i], fls)]
+      if (length(fname) == 0) {
+        print(sprintf("Error: Could not find file for %s", as.character(id.ls[i])))
+        outls[i] <- NA
+      } else if (length(fname) > 1) {
+        print(sprintf("Error: Found multiple files for %s, using first found entry.", as.character(id.ls[i])))
+        outls[i] <- fname[1]
+      } else {
+        outls[i] <- fname
+      }
     } else {
-      outls[i] <- fname
+      print("Error: ID is NA")
+        outls[i] <- NA
     }
   }
   return(outls)
