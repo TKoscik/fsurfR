@@ -17,6 +17,8 @@ read.surf <- function(surf.file, which.vertex, which.face) {
     surf.info$version = "tri"
   } else if (version == 16777215) {
     surf.info$version = "quad"
+  } else if (version == 16777213) {
+    surf.info$version = "other_tri"
   }
   
   if (surf.info$version == "tri") {
@@ -26,6 +28,22 @@ read.surf <- function(surf.file, which.vertex, which.face) {
     surf.info$n.face <- readBin(fid, integer(), size=4, 1, endian=endian)
     surf.info$vertex <- t(matrix(readBin(fid, numeric(), size=4, surf.info$n.vertex*3, endian=endian), nrow=3))
     surf.info$face <- t(matrix(readBin(fid, integer(), size=4, surf.info$n.face*3, endian=endian), nrow=3))
+  } else if (surf.info$version == "other_tri") {
+    b1 <- readBin(fid, "int", size=1, n=1, signed=FALSE, endian=endian)
+    b2 <- readBin(fid, "int", size=1, n=1, signed=FALSE, endian=endian)
+    b3 <- readBin(fid, "int", size=1, n=1, signed=FALSE, endian=endian)
+    surf.info$n.vertex <- bitwShiftL(b1, 16) + bitwShiftL(b2, 8) + b3
+    
+    b1 <- readBin(fid, "int", size=1, n=1, signed=FALSE, endian=endian)
+    b2 <- readBin(fid, "int", size=1, n=1, signed=FALSE, endian=endian)
+    b3 <- readBin(fid, "int", size=1, n=1, signed=FALSE, endian=endian)
+    surf.info$n.face <- bitwShiftL(b1, 16) + bitwShiftL(b2, 8) + b3
+    
+    surf.info$vertex <- t(matrix(readBin(fid, numeric(), size=4, surf.info$n.vertex*3, endian=endian), nrow=3))
+    face.temp <- t(matrix(readBin(fid, integer(), size=1, surf.info$n.face*3*3, endian=endian), nrow=3))
+    face.temp[ ,1] <- bitwShiftL(face.temp[ ,1],16)
+    face.temp[ ,2] <- bitwShiftL(face.temp[ ,2],8)
+    surf.info$face <- matrix(rowSums(face.temp), ncol=3, byrow=T)
   } else if (surf.info$version == "quad") {
     b1 <- readBin(fid, "int", size=1, n=1, signed=FALSE, endian=endian)
     b2 <- readBin(fid, "int", size=1, n=1, signed=FALSE, endian=endian)
